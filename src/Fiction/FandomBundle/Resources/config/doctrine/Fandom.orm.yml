@@ -1,0 +1,69 @@
+Fiction\FandomBundle\Entity\Fandom:
+    type: entity
+    repositoryClass: \Fiction\FandomBundle\Entity\FandomRepository
+    table: fandom
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    oneToMany:
+        chapters:
+            targetEntity: Chapter
+            mappedBy: fandom
+    manyToOne:
+        user:
+            targetEntity: \Fiction\UserBundle\Entity\User
+            inversedBy: fandoms
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        fandom_type:
+            targetEntity: \Fiction\FandomBundle\Entity\FandomType
+            inversedBy: fandoms
+            joinColumn:
+                name: fandom_type_id
+                referencedColumnName: id
+    manyToMany:
+        children:
+            targetEntity: \Fiction\FandomBundle\Entity\Fandom
+            mappedBy: parents
+        parents:
+            targetEntity: \Fiction\FandomBundle\Entity\Fandom
+            inversedBy: children
+            cascade: [persist]
+            joinTable:
+                name: parents
+                joinColumns:
+                    child_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    parent_id:
+                        referencedColumnName: id
+        categories:
+            targetEntity: \Fiction\FandomBundle\Entity\Category
+            inversedBy: fandoms
+            joinTable:
+                name: fandom_category
+                joinColumns:
+                    fandom_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    category_id:
+                        referencedColumnName: id
+                        
+                    
+    lifecycleCallbacks:
+        prePersist: [setCreatedAtValue]
+        preUpdate: [setUpdatedAtValue]

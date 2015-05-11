@@ -1,0 +1,32 @@
+Fiction\FandomBundle\Entity\Chapter:
+    type: entity
+    repositoryClass: \Fiction\FandomBundle\Entity\ChapterRepository
+    table: chapter
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        content:
+            type: text
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+        chapter_number:
+            type: integer
+    manyToOne:
+        fandom:
+            targetEntity: Fandom
+            inversedBy: chapters
+            joinColumn:
+                name: fandom_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [setCreatedAtValue]
+        preUpdate: [setUpdatedAtValue]

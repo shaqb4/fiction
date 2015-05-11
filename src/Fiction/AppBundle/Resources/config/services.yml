@@ -1,0 +1,7 @@
+parameters:
+#    fiction_app.example.class: Fiction\AppBundle\Example
+
+services:
+#    fiction_app.example:
+#        class: %fiction_app.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,4 @@
+user_communities:
+  path: /communities
+  defaults: { _controller: FictionAppBundle:Default:index }
+  

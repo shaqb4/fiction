@@ -1,0 +1,9 @@
+{% extends "FictionUserBundle::layout.html.twig" %}
+
+{% block title %}Reset Your Password{% endblock %}
+
+{% block fos_user_content %}
+	<div class="col-md-6 center-block">
+		{% include "FictionUserBundle:Resetting:reset_content.html.twig" %}
+	</div>
+{% endblock fos_user_content %}

@@ -1,0 +1,6 @@
+services:
+    fiction_markdown_editor.form.type.markdown:
+        class: Fiction\MarkdownEditorBundle\Form\Type\MarkdownType
+        tags:
+          - { name: form.type, alias: markdown }
+#        arguments: [@service_id, "plain_value", %parameter%]

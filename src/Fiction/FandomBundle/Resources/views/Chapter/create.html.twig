@@ -1,0 +1,15 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %}Add a Chapter{% endblock %}
+
+{% block body %}
+	{% for flashMessage in app.session.flashbag.get('error') %}
+	    <div class="alert alert-danger text-center">
+	        <h4>{{ flashMessage|raw }}</h4>
+	    </div>
+	{% endfor %}
+	{% if form and fandom %}	
+		<h1>{{ fandom }}</h1>
+		{{ form(form) }}
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %} {# fandom.title #} {% endblock %}
+
+{% block body %}
+	{% for flashMessage in app.session.flashbag.get('error') %}
+	    <div class="alert alert-warning text-center">
+	        <h4>{{ flashMessage|raw }}</h4>
+	    </div>
+	{% endfor %}
+	{% for fandom in fandoms %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-6">
+						<strong class="text-capitalize h3">
+							<a href="{{ path('view_fandom', {'fandomId': fandom.0.id}) }}" class="">
+								{{ fandom.0.title }}
+							</a> 
+							<small>
+								<span class="h5">by</span> 
+								<em class="h4">{{ fandom.0.user.username }}</em>  
+								<span class="h5">on </span>
+								<span class="h5">{{ fandom.0.updatedAt|localizeddate('medium', 'none') }}</span>
+							</small>
+						</strong>
+					</div>
+					<div class="col-md-6 text-right">
+						<strong class="text-capitalize h4">
+							{{ fandom.0.fandomType.name }}
+						</strong>
+					</div>
+				</div>
+			</div>	
+			<div class="panel-body">				
+				<p>
+					{{ fandom.0.description|e|markdown }}
+				</p>
+					{% if fandom.0.parents is not empty %}
+						<hr />
+						{% for parent in fandom.0.parents %}
+							<span> | </span>
+							<em>
+								<a href="{{ path('view_fandom', {'fandomId': parent.id}) }}" class="">
+									{{ parent.title }}
+								</a></em>
+						{% endfor %}
+					{% endif %}
+			</div>
+			<div class="panel-footer">
+				<strong><em>Created:</em></strong> {{ fandom.0.createdAt|localizeddate('medium', 'short') }}
+				{% if fandom.0.fandomType.id == 1 %}
+					<strong><em>Chapters:</em></strong> {{ fandom.chapter_count }}
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+	<ul class="pagination">
+		{% for p in paginator.page %}
+			<li>
+				<a href="{{ path('view_fandom_children', {'fandomId': fandomId,'page': p}) }}" class="">
+					{{ paginator.label[loop.index0] }}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+	
+{% endblock %}

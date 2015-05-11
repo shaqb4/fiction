@@ -1,0 +1,25 @@
+parameters:
+#    fiction_fandom.example.class: Fiction\FandomBundle\Example
+
+services:
+  fiction_nav.menu_builder:
+          class: Fiction\AppBundle\Menu\Builder
+          arguments: ["@knp_menu.factory", "@security.context"]
+  
+  fiction_nav.menu.left_main:
+      class: Knp\Menu\MenuItem # the service definition requires setting the class
+      factory_service: fiction_nav.menu_builder
+      factory_method: leftNav
+      arguments: ["@request"]
+      scope: request # needed as we have the request as a dependency here
+      tags:
+          - { name: knp_menu.menu, alias: leftNav } # The alias is what is used to retrieve the menu
+          
+  fiction_nav.menu.right_main:
+      class: Knp\Menu\MenuItem # the service definition requires setting the class
+      factory_service: fiction_nav.menu_builder
+      factory_method: rightNav
+      arguments: ["@request"]
+      scope: request # needed as we have the request as a dependency here
+      tags:
+          - { name: knp_menu.menu, alias: rightNav } # The alias is what is used to retrieve the menu

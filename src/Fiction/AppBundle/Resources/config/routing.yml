@@ -1,0 +1,7 @@
+homepage:
+  path: /
+  defaults: { _controller: FictionAppBundle:Default:index }
+  
+find_community:
+  path: /find/communities
+  defaults: { _controller: FictionAppBundle:Default:index }

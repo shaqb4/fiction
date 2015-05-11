@@ -1,0 +1,20 @@
+.center-block
+{
+	float: none;
+}
+
+.row.no-gutter {
+  margin-right:0;
+  margin-left:0;
+}
+.row.no-gutter > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
+}
+
+.vertical-center
+{
+	display: inline-block;
+    vertical-align: middle;
+    float: none;
+}

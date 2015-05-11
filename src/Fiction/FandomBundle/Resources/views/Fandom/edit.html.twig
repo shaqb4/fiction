@@ -1,0 +1,63 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %}Edit a Fandom{% endblock %}
+
+{% block body %}
+	{% if chapterForm %}
+		{{ form_start(chapterForm) }}
+			{{ form_errors(chapterForm) }}
+			<div class="form-group">
+				<div class="">
+					<div class="row">
+						<div class="col-md-4">
+							{{ form_label(chapterForm.chapters, 'Edit a Chapter') }}
+							{{ form_errors(chapterForm.chapters) }}
+						</div>
+					</div>
+					<div class="row no-gutter">
+				        <div class="col-md-4">
+				        	{{ form_widget(chapterForm.chapters) }}
+				        </div>
+				        <div class="col-md-2">
+							<span class="input-group-btn"><button type="submit" class="btn btn-default">Edit</button></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{ form_end(chapterForm) }}
+	{% endif %}
+	
+	{# form(form) #}	
+	
+	{{ form_start(form) }}
+	    {# render the task's only field: description #}
+	    {{ form_row(form.title) }}
+	
+	   {{ form_label(form.parents) }}
+	    <ul class="parents list-unstyled" data-prototype="{{ form_widget(form.parents.vars.prototype)|e }}">
+	        {# iterate over each existing tag and render its only field: name #}
+	        {% for parent in form.parents %}
+	            <li>
+	            	{{ form_errors(parent) }}
+	            	{{ form_widget(parent) }}
+	            </li>
+	        {% endfor %}
+	    </ul>
+	    
+	    {{ form_row(form.fandom_type) }}
+	    
+	    {{ form_row(form.categories) }}
+	    
+	    {{ form_row(form.description) }}
+	    
+	    {{ form_row(form._token) }}
+	    
+	    {{ form_row(form.Save) }}
+	{{ form_end(form, {'render_rest': false}) }}
+	
+{% javascripts
+		'@FictionFandomBundle/Resources/public/js/fandom-parent.js'
+	%}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}

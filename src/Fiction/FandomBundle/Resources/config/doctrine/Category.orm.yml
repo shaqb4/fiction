@@ -1,0 +1,18 @@
+Fiction\FandomBundle\Entity\Category:
+    type: entity
+    table: category
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    manyToMany:
+        fandoms:
+            targetEntity: \Fiction\FandomBundle\Entity\Fandom
+            mappedBy: categories
+    lifecycleCallbacks: {  }

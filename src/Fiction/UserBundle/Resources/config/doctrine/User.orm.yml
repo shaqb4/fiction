@@ -1,0 +1,17 @@
+Fiction\UserBundle\Entity\User:
+  type: entity
+  table: fos_user
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    created_at:
+      type: datetime
+  oneToMany:
+    fandoms:
+      targetEntity: \Fiction\FandomBundle\Entity\Fandom
+      mappedBy: user
+  lifecycleCallbacks:
+        prePersist: [setCreatedAtValue]
