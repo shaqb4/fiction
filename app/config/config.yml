@@ -39,26 +39,26 @@ assetic:
     assets:
         bootstrap_fonts_woff:
             inputs:
-                - 'C:/xampp/htdocs/Fiction/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.woff'
+                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.woff'
             output: fonts/glyphicons-halflings-regular.woff
         bootstrap_fonts_ttf:            
             inputs:
-                - 'C:/xampp/htdocs/Fiction/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.ttf'
+                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.ttf'
             output: fonts/glyphicons-halflings-regular.ttf
         bootstrap_fonts_svg:
             inputs:
-                - 'C:/xampp/htdocs/Fiction/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.svg'
+                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.svg'
             output: fonts/glyphicons-halflings-regular.svg
         bootstrap_fonts_eot:
             inputs:
-                - 'C:/xampp/htdocs/Fiction/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.eot'
+                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.eot'
             output: fonts/glyphicons-halflings-regular.eot
     bundles:        [ FictionAppBundle, FictionMarkdownEditorBundle, FictionFandomBundle ]
     #java: /usr/bin/java
     filters:
         less:
-            node: "C:/Program Files/nodejs/node.exe"
-            node_paths: ["C:/Users/shahk_000/AppData/Roaming/npm/node_modules"]
+            node: "/usr/local/bin/node"
+            node_paths: ["/usr/local/lib/node_modules/"]
             apply_to: "\.less$"
         cssrewrite: ~
         #closure:
