@@ -67,7 +67,8 @@
 		]
 	},
 	"config" : {
-		"bin-dir" : "bin"
+		"bin-dir" : "bin",
+		"vendor-dir": "/home/vagrant/fictionapp/vendor"
 	},
 	"extra" : {
 		"symfony-app-dir" : "app",
