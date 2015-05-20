@@ -40,7 +40,7 @@ class ChapterController extends Controller
 	    {
 	    	$chapter->setFandom($fandom);
     	
-	    	$form = $this->createForm(new ChapterType(), $chapter);
+	    	$form = $this->createForm(new ChapterType($fandom, sizeof($fandom->getChapters()), true), $chapter);
 	    	
 	    	$form->handleRequest($request);
 	    	
@@ -49,6 +49,11 @@ class ChapterController extends Controller
 	    		$em = $this->getDoctrine()->getManager();
 	    		$em->persist($chapter);
 	    		$em->flush();
+				
+				return $this->redirect($this->generateUrl('edit_chapter', array(
+    					'fandomId' => $fandomId, 
+    					'chapterNumber' => $chapter->getChapterNumber()))
+    			);
 	    	}
 	    	
 	        return $this->render('FictionFandomBundle:Chapter:create.html.twig', array(

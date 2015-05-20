@@ -10,21 +10,32 @@ use Fiction\FandomBundle\Entity\Chapter;
 class ChapterType extends AbstractType
 {
 	private $fandom;
-	private $chapter;
+	private $chapterNumber;
+	private $isCreate;
 	
-	public function __construct(Fandom $fandom, $chapterNumber)
+	public function __construct(Fandom $fandom, $chapterNumber, $create = false)
 	{
 		$this->fandom = $fandom;
 		$this->chapterNumber = $chapterNumber;
+		$this->isCreate = $create;
 	}
 	
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{		
 		$chapters = array();
-		
-		for ($i = 1; $i <= sizeof($this->fandom->getChapters()); $i++)
+		$lastChapter = sizeof($this->fandom->getChapters());
+		if (!$this->isCreate)
 		{
-			$chapters[$i] = $i; 
+			for ($i = 1; $i <= $lastChapter; $i++)
+			{
+				$chapters[$i] = $i; 
+			}
+		}
+		else
+		{
+			$lastChapter++;
+			$this->chapterNumber = $lastChapter;
+			$chapters[$lastChapter] = $lastChapter;
 		}
 		
 		$builder->add('title', 'text');

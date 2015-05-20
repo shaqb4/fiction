@@ -10,7 +10,7 @@
 	{% endfor %}
 	{% if form and fandom %}
 		<h3><a href="{{ path('edit_fandom', {'fandomId': fandomId}) }}"> 
-			<< Edit Fandom
+			Edit Fandom
 		</a></h3>
 		<h1>{{ fandom }}: {{ chapter }}</h1>
 		{{ form(form) }}

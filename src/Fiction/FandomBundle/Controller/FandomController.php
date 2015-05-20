@@ -168,7 +168,8 @@ class FandomController extends Controller
     	 
     	return $this->render('FictionFandomBundle:Fandom:edit.html.twig', array(
     			'form' => $form->createView(),
-    			'chapterForm' => $chapterEditForm
+    			'chapterForm' => $chapterEditForm,
+                'fandom_id' => $fandomId
     	));
     }
     
