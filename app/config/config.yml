@@ -39,19 +39,19 @@ assetic:
     assets:
         bootstrap_fonts_woff:
             inputs:
-                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.woff'
+                - '/home/vagrant/fictionapp/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.woff'
             output: fonts/glyphicons-halflings-regular.woff
         bootstrap_fonts_ttf:            
             inputs:
-                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.ttf'
+                - '/home/vagrant/fictionapp/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.ttf'
             output: fonts/glyphicons-halflings-regular.ttf
         bootstrap_fonts_svg:
             inputs:
-                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.svg'
+                - '/home/vagrant/fictionapp/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.svg'
             output: fonts/glyphicons-halflings-regular.svg
         bootstrap_fonts_eot:
             inputs:
-                - '/var/www/public/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.eot'
+                - '/home/vagrant/fictionapp/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.eot'
             output: fonts/glyphicons-halflings-regular.eot
     bundles:        [ FictionAppBundle, FictionMarkdownEditorBundle, FictionFandomBundle ]
     #java: /usr/bin/java
@@ -68,8 +68,8 @@ assetic:
         
 braincrafted_bootstrap:
     output_dir: 
-    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
-    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+    assets_dir: /home/vagrant/fictionapp/vendor/twbs/bootstrap
+    jquery_path: /home/vagrant/fictionapp/vendor/jquery/jquery/jquery-1.10.2.js
     less_filter: less # "less", "lessphp", "sass" or "none"
     fonts_dir: %kernel.root_dir%/../web/fonts
     auto_configure:
