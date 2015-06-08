@@ -2,9 +2,15 @@ parameters:
 #    fiction_fandom.example.class: Fiction\FandomBundle\Example
 
 services:
+  security.access.fandom_voter:
+    class: Fiction\FandomBundle\Security\Authorization\Voter\FandomVoter
+    public: false
+    tags:
+      - { name: security.voter }
+
   fiction_nav.menu_builder:
           class: Fiction\AppBundle\Menu\Builder
-          arguments: ["@knp_menu.factory", "@security.context"]
+          arguments: ["@knp_menu.factory", "@security.authorization_checker", "@security.token_storage"]
   
   fiction_nav.menu.left_main:
       class: Knp\Menu\MenuItem # the service definition requires setting the class

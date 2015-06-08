@@ -1,0 +1,11 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+	{% for flashMessage in app.session.flashbag.get('error') %}
+	    <div class="alert alert-danger text-center">
+	        <h4>{{ flashMessage|raw }}</h4>
+	    </div>
+	{% endfor %}
+{% endblock %}

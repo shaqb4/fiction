@@ -9,6 +9,7 @@ use Fiction\FandomBundle\Entity\Chapter;
 use Fiction\FandomBundle\Form\Type\FandomType;
 use Fiction\FandomBundle\Form\Type\FandomFilterType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class FandomController extends Controller
 {
@@ -17,7 +18,7 @@ class FandomController extends Controller
     	$fandom = new Fandom();
     	$fandom->setTitle('Fandom Title...');
     	$fandom->setDescription('A mindblowing Fandom summary or description...');
-    	$fandom->setUser($this->get('security.context')->getToken()->getUser());
+    	$fandom->setUser($this->get('security.token_storage')->getToken()->getUser());
     	
     	$form = $this->createForm(new FandomType(), $fandom);
     	
@@ -95,13 +96,19 @@ class FandomController extends Controller
     public function editFandomAction(Request $request, $fandomId)
     {
     	$repository = $this->getDoctrine()->getRepository('FictionFandomBundle:Fandom');
-    	$fandom = $repository->findUserFandom($fandomId, $this->get('security.context')->getToken()->getUser());
-    	 
-    	if (!$fandom)
-    	{
-    		throw $this->createNotFoundException("You don't own this Fandom!");
-    	}
-    	
+        $fandom = $repository->findOneById($fandomId);
+        
+        if ($this->get('security.authorization_checker')->isGranted('edit', $fandom) === false)
+        {
+            $request->getSession()->getFlashBag()->add(
+				'error',
+				'Oops! You don\'t have permission to edit this fandom. 
+	    			You can view your fandoms in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!'
+			);
+	    	
+	    	return $this->render('FictionAppBundle::error.html.twig', array());
+        } 
+        
     	$originalParents = new ArrayCollection();
     	
     	foreach ($fandom->getParents() as $parent) {
@@ -118,7 +125,7 @@ class FandomController extends Controller
 	    	->add('chapters', 'entity', array(
 	    			'class' => 'FictionFandomBundle:Chapter',
 	    			'choices' => $this->getDoctrine()->getRepository('FictionFandomBundle:Chapter')->getAllFandomChapters($fandom),
-	    			'property' => 'title'
+	    			'choice_label' => 'title'
 	    	))
 	    	->getForm();
 	    	
@@ -190,12 +197,56 @@ class FandomController extends Controller
     
     public function userFandomsAction()
     {
-    	$user = $this->get('security.context')->getToken()->getUser();
+    	$user = $this->get('security.token_storage')->getToken()->getUser();
     	$fandoms = $user->getFandoms();
     	 
     	// parameters to template
     	return $this->render('FictionFandomBundle:Fandom:user_fandoms.html.twig', array(
     			'fandoms' => $fandoms
+    	));
+    }
+    
+    public function deleteFandomAction(Request $request, $fandomId)
+    {
+        
+        $fandom = $this->getDoctrine()->getRepository('FictionFandomBundle:Fandom')->findOneById($fandomId);
+        
+        if ($this->get('security.authorization_checker')->isGranted('delete', $fandom) === false)
+        {
+            $request->getSession()->getFlashBag()->add(
+				'error',
+				'Oops! You don\'t have permission to delete this fandom. 
+	    			You can view your fandoms in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!'
+			);
+	    	
+	    	return $this->render('FictionAppBundle::error.html.twig', array());
+        } 
+        
+        //delete the fandom
+        
+        //Redirect to the user fandoms page
+        return $this->redirect($this->generateUrl('user_fandoms', 302));
+        
+    }
+    
+    public function deleteConfirmFandomAction(Request $request, $fandomId)
+    {
+        $fandom = $this->getDoctrine()->getRepository('FictionFandomBundle:Fandom')->findOneById($fandomId);
+        
+        if ($this->get('security.authorization_checker')->isGranted('delete', $fandom) === false)
+        {
+            $request->getSession()->getFlashBag()->add(
+				'error',
+				'Oops! You don\'t have permission to delete this fandom. 
+	    			You can view your fandoms in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!'
+			);
+	    	
+	    	return $this->render('FictionAppBundle::error.html.twig', array());
+        } 
+        
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        return $this->render('FictionFandomBundle:Fandom:delete_confirm.html.twig', array(
+    			'fandomId' => $fandomId
     	));
     }
 }

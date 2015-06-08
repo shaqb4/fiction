@@ -5,3 +5,7 @@ homepage:
 find_community:
   path: /find/communities
   defaults: { _controller: FictionAppBundle:Default:index }
+  
+error:
+  path: /error
+  defaults: { _controller: FictionAppBundle:Default:error }

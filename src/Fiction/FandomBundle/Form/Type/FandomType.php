@@ -3,7 +3,7 @@ namespace Fiction\FandomBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Fiction\FandomBundle\Form\Type\FandomParentType;
 use Fiction\MarkdownEditorBundle\Form\Type\MarkdownType;
 use Fiction\FandomBundle\Form\DataTransformer\ParentToNumberTransformer;
@@ -32,11 +32,11 @@ class FandomType extends AbstractType
 		$builder->add('title', 'text');
 		$builder->add('fandom_type', 'entity', array(
 				'class' => 'FictionFandomBundle:FandomType',
-				'property' => 'name'
+				'choice_label' => 'name'
 		));
 		$builder->add('categories', 'entity', array(
 				'class' => 'FictionFandomBundle:Category',
-				'property' => 'name',
+				'choice_label' => 'name',
 				'multiple' => true,
 				'expanded' => true
 		));
@@ -44,7 +44,7 @@ class FandomType extends AbstractType
 		$builder->add('Save', 'submit');
 	}
 
-	public function setDefaultOptions(OptionsResolverInterface $resolver)
+	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
 				'data_class' => 'Fiction\FandomBundle\Entity\Fandom',
@@ -59,6 +59,7 @@ class FandomType extends AbstractType
 		->setAllowedTypes(array(
 			'em' => 'Doctrine\Common\PersistenceManager'
 		));*/
+		//^^Must be updated for Symfony 2.7 if needed
 	}
 
 	public function getName()

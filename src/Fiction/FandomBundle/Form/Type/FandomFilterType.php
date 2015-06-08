@@ -3,7 +3,7 @@ namespace Fiction\FandomBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Fiction\FandomBundle\Form\Type\FandomParentType;
 use Fiction\FandomBundle\Form\DataTransformer\ParentToNumberTransformer;
 
@@ -16,13 +16,13 @@ class FandomFilterType extends AbstractType
 		));
 		$builder->add('fandom_type', 'entity', array(
 				'class' => 'FictionFandomBundle:FandomType',
-				'property' => 'name',
+				'choice_label' => 'name',
 				'required' => false,
-				'empty_value' => 'Choose a type of Fandom'
+				'placeholder' => 'Choose a type of Fandom'
 		));
 		$builder->add('categories', 'entity', array(
 				'class' => 'FictionFandomBundle:Category',
-				'property' => 'name',
+				'choice_label' => 'name',
 				'multiple' => true,
 				'expanded' => true
 		));
@@ -32,7 +32,7 @@ class FandomFilterType extends AbstractType
 		$builder->add('Filter', 'submit');
 	}
 
-	public function setDefaultOptions(OptionsResolverInterface $resolver)
+	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
 				'data_class' => 'Fiction\FandomBundle\Entity\Fandom',

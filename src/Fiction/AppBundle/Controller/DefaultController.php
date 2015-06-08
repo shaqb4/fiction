@@ -12,6 +12,11 @@ class DefaultController extends Controller
         return $this->render('FictionAppBundle::home.html.twig');
     }
     
+    public function errorAction()
+    {
+        return $this->render('FictionAppBundle::error.html.twig');
+    }
+    
     public function removeTrailingSlashAction(Request $request)
     {
     	$pathInfo = $request->getPathInfo();

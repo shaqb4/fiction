@@ -3,7 +3,7 @@ namespace Fiction\FandomBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Fiction\FandomBundle\Entity\Fandom;
 use Fiction\FandomBundle\Entity\Chapter;
 
@@ -49,7 +49,7 @@ class ChapterType extends AbstractType
 		$builder->add('save', 'submit');
 	}
 
-	public function setDefaultOptions(OptionsResolverInterface $resolver)
+	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
 				'data_class' => 'Fiction\FandomBundle\Entity\Chapter',

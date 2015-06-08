@@ -12,30 +12,25 @@ class ChapterController extends Controller
 {	
     public function createChapterAction(Request $request, $fandomId)
     {
-    	$user = $this->get('security.context')->getToken()->getUser();
+    	$user = $this->get('security.token_storage')->getToken()->getUser();
     	
     	$chapter = new Chapter();
     	$chapter->setTitle('Chapter Title...');
     	$chapter->setContent('Once upon a time...');
-    	
-	    $fandom = $this->getDoctrine()
-	        ->getRepository('FictionFandomBundle:Fandom')
-	        ->findUserFandom($fandomId, $user);
-	    
-	    if (!$fandom) {
-	        /*throw $this->createNotFoundException(
-	            'You do not have a story with id: '.$fandomId
-	        );*/
-	    	$flash = $this->get('braincrafted_bootstrap.flash');
+		
+		$repository = $this->getDoctrine()->getRepository('FictionFandomBundle:Fandom');
+        $fandom = $repository->findOneById($fandomId);
+        
+        if ($this->get('security.authorization_checker')->isGranted('edit', $fandom) === false)
+        {
+            $request->getSession()->getFlashBag()->add(
+				'error',
+				'Oops! You don\'t have permission to edit this fandom. 
+	    			You can view your fandoms in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!'
+			);
 	    	
-	    	$flash->error('Oops! You don\'t have a fandom with an id of <strong>'. $fandomId.'</strong>. 
-	    			You can see which fandoms are yours in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!');
-	    	
-	    	return $this->render('FictionFandomBundle:Chapter:create.html.twig', array(
-	    			'form' => '',
-	    			'fandom' => ''
-	    	));
-	    }
+	    	return $this->render('FictionAppBundle::error.html.twig', array());
+        } 
 	    else
 	    {
 	    	$chapter->setFandom($fandom);
@@ -65,40 +60,36 @@ class ChapterController extends Controller
     
     public function editChapterAction(Request $request, $fandomId, $chapterNumber)
     {
-    	$user = $this->get('security.context')->getToken()->getUser();
+    	$user = $this->get('security.token_storage')->getToken()->getUser();
     	 
-    	$fandom = $this->getDoctrine()
-    	->getRepository('FictionFandomBundle:Fandom')
-    	->findUserFandom($fandomId, $user);
-    	 
-    	if (!$fandom) {
-    		$flash = $this->get('braincrafted_bootstrap.flash');
-    
-    		$flash->error('Oops! You don\'t have a fandom with an id of <strong>'. $fandomId.'</strong>.
-	    			You can see which fandoms are yours in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!');
-    
-    		return $this->render('FictionFandomBundle:Chapter:edit.html.twig', array(
-    				'form' => '',
-    				'fandom' => '',
-    				'chapter' => ''
-    		));
-    	}
+    	$repository = $this->getDoctrine()->getRepository('FictionFandomBundle:Fandom');
+        $fandom = $repository->findOneById($fandomId);
+        
+        if ($this->get('security.authorization_checker')->isGranted('edit', $fandom) === false)
+        {
+            $request->getSession()->getFlashBag()->add(
+				'error',
+				'Oops! You don\'t have permission to edit this fandom. 
+	    			You can view your fandoms in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!'
+			);
+	    	
+	    	return $this->render('FictionAppBundle::error.html.twig', array());
+        } 
     	else
     	{
     		$chapter = $this->getDoctrine()->getRepository('FictionFandomBundle:Chapter')
     		->findOneBy(array('fandom' => $fandom, 'chapter_number' => $chapterNumber));
     		 
-    		if (!$chapter) {
-    			$flash = $this->get('braincrafted_bootstrap.flash');
-    		
-    			$flash->error('Oops! This fandom doesn\'t have a chapter number <strong>'. $chapterNumber .'</strong>.
-	    			You can see your fandoms\' information in your <a href=\''.$this->generateUrl('user_fandoms').'\'>profile</a>!');
-    		
-    			return $this->render('FictionFandomBundle:Chapter:edit.html.twig', array(
-    					'form' => '',
-    					'fandom' => $fandom->getTitle(),
-    					'chapter' => ''
-    			));
+    		if (!$chapter) 
+			{
+				$request->getSession()->getFlashBag()->add(
+					'error',
+					'Oops! This chapter doesn\'t exist. 
+	    				You can edit your fandom and its chapters <a href=\''.$this->generateUrl('edit_fandom', array('fandomId' => $fandomId)).'\'>
+						here</a>!'
+				);
+	    	
+	    		return $this->render('FictionAppBundle::error.html.twig', array());
     		}
     		
     		$form = $this->createForm(new ChapterType($fandom, $chapterNumber), $chapter);
@@ -175,7 +166,7 @@ class ChapterController extends Controller
     		->add('chapters', 'entity', array(
     			'class' => 'FictionFandomBundle:Chapter',
     			'choices' => $this->getDoctrine()->getRepository('FictionFandomBundle:Chapter')->getAllFandomChapters($fandom),
-    			'property' => 'title',
+    			'choice_label' => 'title',
     			'data' => $chapter
     		))
     		->getForm();

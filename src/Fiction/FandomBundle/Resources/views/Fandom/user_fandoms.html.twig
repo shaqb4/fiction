@@ -16,11 +16,11 @@
 				<div class="row ">
 					<div class="col-md-6">
 						<span class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id="fandom-{{ fandom.id }}-actions">
 								Actions
 								<span class="caret"></span>
 							</button>
-							<ul class="dropdown-menu" role="menu" >
+							<ul class="dropdown-menu" role="menu" aria-labelledby="fandom-{{ fandom.id }}-actions">
 								{% if fandom.fandomType.id == 1 and fandom.chapters|length > 0 %}
 									<li role="presentation">
 										<a role="menuitem" tabindex="-1" href="{{ path('view_chapter', {'fandomId': fandom.id, 'chapterNumber': 1}) }}">
@@ -36,6 +36,12 @@
 								<li role="presentation">
 									<a role="menuitem" tabindex="-1" href="{{ path('view_fandom', {'fandomId': fandom.id}) }}">
 										View Fandom
+									</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{{ path('delete_confirm_fandom', {'fandomId': fandom.id}) }}">
+										Delete Fandom
 									</a>
 								</li>
 							</ul>

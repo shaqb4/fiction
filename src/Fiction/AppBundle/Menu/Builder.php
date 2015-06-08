@@ -3,17 +3,20 @@ namespace Fiction\AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class Builder
 {
 	private $factory;
-	private $securityContext;
+	private $authChecker;
+	private $tokStorage;
 	
-	public function __construct(FactoryInterface $factory, SecurityContext $securityContext)
+	public function __construct(FactoryInterface $factory, AuthorizationChecker $auth, TokenStorage $token)
 	{
 		$this->factory = $factory;
-		$this->securityContext = $securityContext;
+		$this->authChecker = $auth;
+		$this->tokStorage = $token;
 	}
 	
 	public function leftNav(Request $request)//, array $options)
@@ -41,9 +44,9 @@ class Builder
 	{
 		$menu = $this->factory->createItem('root');
 	
-		if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))
+		if ($this->authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED'))
 		{
-			$user = $this->securityContext->getToken()->getUser();
+			$user = $this->tokStorage->getToken()->getUser();
 			$dropdown = $menu->addChild($user->getUsername(), array(
 					'icon' => 'glyphicon-user',
 					'dropdown' => true,

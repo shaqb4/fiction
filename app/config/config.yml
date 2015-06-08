@@ -108,6 +108,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Fiction\UserBundle\Entity\User
+    registration:
+        confirmation:
+            enabled: true
     
 services:
     twig.extension.intl:
