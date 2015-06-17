@@ -42,8 +42,14 @@ class Chapter
     /**
      * @var integer
      */
-    protected $chapter_number;
+    private $chapter_number;
 
+    /**
+    *
+    * @var integer
+    */
+    private $word_count;
+    
     /**
      * Get id
      *
@@ -185,5 +191,28 @@ class Chapter
     public function setUpdatedAtValue()
     {
     	$this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * Set chapter_number
+     *
+     * @param integer $chapterNumber
+     * @return Chapter
+     */
+    public function setChapterNumber($chapterNumber)
+    {
+        $this->chapter_number = $chapterNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get chapter_number
+     *
+     * @return integer 
+     */
+    public function getChapterNumber()
+    {
+        return $this->chapter_number;
     }
 }

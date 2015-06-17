@@ -26,6 +26,8 @@ class FandomController extends Controller
     	
     	if ($form->isValid())
     	{
+            $fandom->setWordCount(0);
+            
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($fandom);
     		$em->flush();

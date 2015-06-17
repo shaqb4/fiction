@@ -42,9 +42,11 @@
 			</div>	
 			<div class="panel-body">				
 				<p>
-					{{ fandom.0.description[:1024]|e|markdown }}
-					{% if fandom.0.description|length > 1024 %}
-						...
+					{% if fandom.0.description|length > 600 %}
+						{{ (fandom.0.description[:600] ~ '...') |e|markdown }}
+						<a href="#">Read More...</a>
+					{% else %}
+						{{ fandom.0.description|e|markdown }}
 					{% endif %}
 				</p>
 					{% if fandom.0.parents is not empty %}

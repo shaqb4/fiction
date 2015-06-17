@@ -43,7 +43,16 @@ class ChapterController extends Controller
 	    	{
 	    		$em = $this->getDoctrine()->getManager();
 	    		$em->persist($chapter);
-	    		$em->flush();
+				
+				
+				$totalFandomWords = $fandom->getWordCount() + str_word_count($chapter->getContent(), 0, '0123456789');
+				$fandom->setWordCount($totalFandomWords);
+				$em->persist($fandom);
+				
+				$chapter->setWordCount(str_word_count($chapter->getContent(), 0, '0123456789'));
+				$em->persist($chapter);
+	    		
+				$em->flush();
 				
 				return $this->redirect($this->generateUrl('edit_chapter', array(
     					'fandomId' => $fandomId, 
@@ -136,8 +145,15 @@ class ChapterController extends Controller
     				$em->persist($c);
     			}
     			
-    			$em->persist($chapter);
-    			$em->flush();
+				//Get the fandom word count, then add the edited chapters new word count and subtract its original word count				
+				$totalFandomWords = $fandom->getWordCount() + str_word_count($chapter->getContent(), 0, '0123456789') - $chapter->getWordCount();
+				$fandom->setWordCount($totalFandomWords);
+				$em->persist($fandom);
+				
+				$chapter->setWordCount(str_word_count($chapter->getContent(), 0, '0123456789'));
+				$em->persist($chapter);
+    			
+				$em->flush();
     			
     			return $this->redirect($this->generateUrl('edit_chapter', array(
     					'fandomId' => $fandomId, 

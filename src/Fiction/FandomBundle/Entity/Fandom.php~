@@ -71,6 +71,12 @@ class Fandom
     protected $children;
     
     /**
+    *
+    * @var integer
+    */
+    protected $word_count;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -380,4 +386,5 @@ class Fandom
     {
         return $this->parents;
     }
+
 }

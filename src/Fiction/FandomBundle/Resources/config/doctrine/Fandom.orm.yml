@@ -18,6 +18,8 @@ Fiction\FandomBundle\Entity\Fandom:
             type: datetime
         updated_at:
             type: datetime
+        word_count:
+            type: integer
     oneToMany:
         chapters:
             targetEntity: Chapter
@@ -65,5 +67,5 @@ Fiction\FandomBundle\Entity\Fandom:
                         
                     
     lifecycleCallbacks:
-        prePersist: [setCreatedAtValue]
+        prePersist: [setCreatedAtValue, setUpdatedAtValue]
         preUpdate: [setUpdatedAtValue]

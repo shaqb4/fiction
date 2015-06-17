@@ -123,6 +123,11 @@ services:
         tags:
             - { name: form.type, alias: fandom_parent }
     
+doctrine_migrations:
+    dir_name: %kernel.root_dir%/DoctrineMigrations
+    namespace: Fiction\Migrations
+    table_name: migration_versions
+    name: Application Migrations
 #knp_menu:
 #    twig:
 #        template: knp_menu.html.twig

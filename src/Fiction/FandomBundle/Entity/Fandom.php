@@ -71,6 +71,12 @@ class Fandom
     protected $children;
     
     /**
+    *
+    * @var integer
+    */
+    private $word_count;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -379,5 +385,30 @@ class Fandom
     public function getParents()
     {
         return $this->parents;
+    }
+
+
+    /**
+     * Set wordCount
+     *
+     * @param integer $wordCount
+     *
+     * @return Fandom
+     */
+    public function setWordCount($wordCount)
+    {
+        $this->word_count = $wordCount;
+
+        return $this;
+    }
+
+    /**
+     * Get wordCount
+     *
+     * @return integer
+     */
+    public function getWordCount()
+    {
+        return $this->word_count;
     }
 }

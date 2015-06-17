@@ -20,6 +20,8 @@ Fiction\FandomBundle\Entity\Chapter:
             type: datetime
         chapter_number:
             type: integer
+        word_count:
+            type: integer
     manyToOne:
         fandom:
             targetEntity: Fandom
@@ -28,5 +30,5 @@ Fiction\FandomBundle\Entity\Chapter:
                 name: fandom_id
                 referencedColumnName: id
     lifecycleCallbacks:
-        prePersist: [setCreatedAtValue]
+        prePersist: [setCreatedAtValue, setUpdatedAtValue]
         preUpdate: [setUpdatedAtValue]

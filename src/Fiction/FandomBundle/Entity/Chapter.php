@@ -45,6 +45,12 @@ class Chapter
     private $chapter_number;
 
     /**
+    *
+    * @var integer
+    */
+    private $word_count;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -208,5 +214,29 @@ class Chapter
     public function getChapterNumber()
     {
         return $this->chapter_number;
+    }
+
+    /**
+     * Set wordCount
+     *
+     * @param integer $wordCount
+     *
+     * @return Chapter
+     */
+    public function setWordCount($wordCount)
+    {
+        $this->word_count = $wordCount;
+
+        return $this;
+    }
+
+    /**
+     * Get wordCount
+     *
+     * @return integer
+     */
+    public function getWordCount()
+    {
+        return $this->word_count;
     }
 }
