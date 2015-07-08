@@ -26,6 +26,7 @@ class AppKernel extends Kernel
         	new Hashnz\TwigMarkdownBundle\HashnzTwigMarkdownBundle(),            
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

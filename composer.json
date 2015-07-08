@@ -41,7 +41,8 @@
 		"jquery/jquery" : "1.10.*",
 		"knplabs/knp-markdown-bundle" : "1.3.2",
 		"hashnz/twig-markdown-bundle" : "dev-master",
-		"stfalcon/tinymce-bundle": "dev-master"
+		"stfalcon/tinymce-bundle": "dev-master",
+		"exercise/htmlpurifier-bundle": "*"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "~2.3"

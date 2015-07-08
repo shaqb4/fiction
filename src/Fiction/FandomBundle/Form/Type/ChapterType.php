@@ -45,7 +45,7 @@ class ChapterType extends AbstractType
 			'expanded' => false,
 			'data' =>	$this->chapterNumber
 		));
-		$builder->add('content', 'textarea', array(
+		$builder->add('content', 'pure_textarea', array(
 			'attr' => array(
 				'class' => 'tinymce',
 				'data-theme' => 'story'				

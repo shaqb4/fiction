@@ -2,6 +2,16 @@ parameters:
 #    fiction_fandom.example.class: Fiction\FandomBundle\Example
 
 services:
+  fiction_fandom.form.type.pure_textarea:
+    class: Fiction\FandomBundle\Form\Type\PureTextareaType
+    arguments: ["@fiction_fandom.form.transformer.html_purifier"]
+    tags:
+      - { name: form.type, alias: pure_textarea }
+      
+  fiction_fandom.form.transformer.html_purifier:
+    class: Exercise\HTMLPurifierBundle\Form\HTMLPurifierTransformer
+    arguments: ["@exercise_html_purifier.custom"]
+    
   security.access.fandom_voter:
     class: Fiction\FandomBundle\Security\Authorization\Voter\FandomVoter
     public: false

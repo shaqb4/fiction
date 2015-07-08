@@ -40,7 +40,7 @@ class FandomType extends AbstractType
 				'multiple' => true,
 				'expanded' => true
 		));
-		$builder->add('description', 'textarea', array(
+		$builder->add('description', 'pure_textarea', array(
 			'attr' => array(
 				'class' => 'tinymce',
 				'data-theme' => 'general'				

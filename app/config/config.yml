@@ -129,13 +129,20 @@ doctrine_migrations:
     table_name: migration_versions
     name: Application Migrations
     
+exercise_html_purifier:
+    default:
+        Cache.SerializerPath: '%kernel.cache_dir%/htmlpurifier'
+    custom:
+        HTML.Allowed: "*[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span,div,img[src|alt],a[href|target],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,samp,u,var,br"
+        CSS.AllowedProperties: "text-align, padding-left, text-decoration, width, height"
+    
 stfalcon_tinymce:
     tinymce_jquery: true
     selector: '.tinymce'
     language: '%locale%'
     theme:
         story:
-            valid_elements: @[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span[!class],div[!class],img[src|alt],a[!href|target=_blank],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,mark,samp,time,u,var,br"
+            valid_elements: "@[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span,div,img[src|alt],a[!href|target=_blank],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,samp,u,var,br"
             skin: 'customplain'
             height: 400
             convert_fonts_to_spans: false;
@@ -157,19 +164,19 @@ stfalcon_tinymce:
                 strikethrough:
                     inline: 's'
         general:
-            valid_elements: @[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span[!class],div[!class],img[src|alt],a[!href|target=_blank],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,mark,samp,time,u,var,br"
+            valid_elements: "@[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span,div,img[src|alt],a[!href|target=_blank],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,samp,u,var,br"
             skin: 'customplain'
             height: 400
             convert_fonts_to_spans: false;
             content_css: 'asset[css/app.css]'
             plugins:
-                - 'preview wordcount searchreplace fullscreen hr table'
+                - 'preview wordcount searchreplace fullscreen hr'
                 - 'nonbreaking textpattern link image code lists spellchecker'
             nonbreaking_force_tab: true
             block_formats:
                 'Header 1=h3;Header 2=h4;Header 3=h5;Header 4=h6;'
             toolbar:
-                - 'formatselect | bold italic underline strikethrough blockquote | bullist numlist | alignleft aligncenter alignright alignjustify | indent outdent | table link image hr | paste code preview fullscreen'
+                - 'formatselect | bold italic underline strikethrough blockquote | bullist numlist | alignleft aligncenter alignright alignjustify | indent outdent | link image hr | paste code preview fullscreen'
             menu:
                 edit:
                     title: 'Edit'
