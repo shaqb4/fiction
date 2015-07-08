@@ -18,5 +18,5 @@
 			</div>
 		</div>
 	{{ form_end(form) }}
-	<p>{{ chapter.content|e|markdown }}</p>
+	<p>{{ chapter.content|raw }}</p>
 {% endblock %}

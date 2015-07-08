@@ -40,7 +40,8 @@
 		"twbs/bootstrap" : "3.0.*",
 		"jquery/jquery" : "1.10.*",
 		"knplabs/knp-markdown-bundle" : "1.3.2",
-		"hashnz/twig-markdown-bundle" : "dev-master"
+		"hashnz/twig-markdown-bundle" : "dev-master",
+		"stfalcon/tinymce-bundle": "dev-master"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "~2.3"

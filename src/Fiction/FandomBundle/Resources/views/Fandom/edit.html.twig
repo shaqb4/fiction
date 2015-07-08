@@ -62,6 +62,8 @@
 	    {{ form_row(form.Save) }}
 	{{ form_end(form, {'render_rest': false}) }}
 	
+	{{ tinymce_init() }}
+	
 	{% javascripts
 		'@FictionFandomBundle/Resources/public/js/fandom-parent.js'
 	%}

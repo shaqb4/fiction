@@ -41,14 +41,16 @@
 				</div>
 			</div>	
 			<div class="panel-body">				
-				<p>
+				<section class="editor-content">
+					<h2>Description</h2>
 					{% if fandom.0.description|length > 600 %}
-						{{ (fandom.0.description[:600] ~ '...') |e|markdown }}
-						<a href="#">Read More...</a>
+						{{ (fandom.0.description[:600] ~ '...') |raw }}
+						<br />
+						<a href="{{ path('view_fandom', {'fandomId': fandom.0.id}) }}">Read More</a>
 					{% else %}
-						{{ fandom.0.description|e|markdown }}
+						{{ fandom.0.description|raw }}
 					{% endif %}
-				</p>
+				</section>
 					{% if fandom.0.parents is not empty %}
 						<hr />
 						{% for parent in fandom.0.parents %}

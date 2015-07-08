@@ -1,3 +1,0 @@
-fiction_markdown_editor_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: FictionMarkdownEditorBundle:Default:index }

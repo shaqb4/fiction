@@ -34,7 +34,7 @@
 			</div>	
 			<div class="panel-body">				
 				<p>
-					{{ fandom.0.description|e|markdown }}
+					{{ fandom.0.description|raw }}
 				</p>
 					{% if fandom.0.parents is not empty %}
 						<hr />

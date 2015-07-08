@@ -28,7 +28,7 @@ framework:
 twig:
     form:
         resources:
-            - 'FictionMarkdownEditorBundle:Form:fields.html.twig'
+            #- 'FictionQuillEditorBundle:Form:fields.html.twig'
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
@@ -53,7 +53,7 @@ assetic:
             inputs:
                 - '/home/vagrant/fictionapp/vendor/twbs/bootstrap/fonts/glyphicons-halflings-regular.eot'
             output: fonts/glyphicons-halflings-regular.eot
-    bundles:        [ FictionAppBundle, FictionMarkdownEditorBundle, FictionFandomBundle ]
+    bundles:        [ FictionAppBundle, FictionFandomBundle]
     #java: /usr/bin/java
     filters:
         less:
@@ -128,6 +128,56 @@ doctrine_migrations:
     namespace: Fiction\Migrations
     table_name: migration_versions
     name: Application Migrations
+    
+stfalcon_tinymce:
+    tinymce_jquery: true
+    selector: '.tinymce'
+    language: '%locale%'
+    theme:
+        story:
+            valid_elements: @[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span[!class],div[!class],img[src|alt],a[!href|target=_blank],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,mark,samp,time,u,var,br"
+            skin: 'customplain'
+            height: 400
+            convert_fonts_to_spans: false;
+            content_css: 'asset[css/app.css]'
+            plugins:
+                - 'preview wordcount searchreplace fullscreen hr'
+                - 'nonbreaking textpattern link image code lists spellchecker'
+            nonbreaking_force_tab: true
+            block_formats:
+                'Header 1=h3;Header 2=h4;Header 3=h5;Header 4=h6;'
+            toolbar:
+                - 'formatselect | bold italic underline strikethrough blockquote | bullist numlist | alignleft aligncenter alignright alignjustify | indent outdent | link image hr | paste code preview fullscreen'
+            menu:
+                edit:
+                    title: 'Edit'
+                    items: 'undo redo | searchreplace'
+            menubar: false
+            formats:
+                strikethrough:
+                    inline: 's'
+        general:
+            valid_elements: @[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span[!class],div[!class],img[src|alt],a[!href|target=_blank],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,mark,samp,time,u,var,br"
+            skin: 'customplain'
+            height: 400
+            convert_fonts_to_spans: false;
+            content_css: 'asset[css/app.css]'
+            plugins:
+                - 'preview wordcount searchreplace fullscreen hr table'
+                - 'nonbreaking textpattern link image code lists spellchecker'
+            nonbreaking_force_tab: true
+            block_formats:
+                'Header 1=h3;Header 2=h4;Header 3=h5;Header 4=h6;'
+            toolbar:
+                - 'formatselect | bold italic underline strikethrough blockquote | bullist numlist | alignleft aligncenter alignright alignjustify | indent outdent | table link image hr | paste code preview fullscreen'
+            menu:
+                edit:
+                    title: 'Edit'
+                    items: 'undo redo | searchreplace'
+            menubar: false
+            formats:
+                strikethrough:
+                    inline: 's'
 #knp_menu:
 #    twig:
 #        template: knp_menu.html.twig

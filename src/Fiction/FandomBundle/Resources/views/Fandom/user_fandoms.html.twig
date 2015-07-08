@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<p>{{ fandom.description|e|markdown }}</p>
+				<p>{{ fandom.description|raw }}</p>
 			</div>
 			<div class="panel-footer">
 				<strong><em>Created:</em></strong> {{ fandom.createdAt|localizeddate('medium', 'short') }}
