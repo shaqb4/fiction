@@ -1,5 +1,5 @@
 fiction_fandom:
-    resource: "@FictionFandomBundle/Resources/config/routing.yml"
+    resource: "@FictionFandomBundle/Resources/config/routing/routing.yml"
     prefix:   /
 
 fiction_app:

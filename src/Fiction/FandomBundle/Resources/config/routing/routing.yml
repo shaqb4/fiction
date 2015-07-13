@@ -1,0 +1,30 @@
+fiction_fandom_profile:
+  resource: "@FictionFandomBundle/Resources/config/routing/profile.yml"
+  prefix: "/profile"
+
+view_fandom:
+  path: /fandoms/{fandomId}
+  defaults: { _controller: FictionFandomBundle:Fandom:viewFandom }
+  requirements:
+    page: \d+
+    fandomId: \d+
+  
+view_fandom_children:
+  path: /fandoms/{fandomId}/page/{page}
+  defaults: { _controller: FictionFandomBundle:Fandom:viewFandomChildren }
+  requirements:
+    page: \d+
+    fandomId: \d+
+
+find_fandom:
+  path: /fandoms/page/{page}
+  defaults: { _controller: FictionFandomBundle:Fandom:findFandoms }
+  requirements:
+    page: \d+ 
+  
+view_chapter:
+  path: /fandoms/{fandomId}/chapter/{chapterNumber}
+  defaults: { _controller: FictionFandomBundle:Chapter:viewChapter }
+  requirements:
+    fandomId: \d+
+    chapterNumber: \d+ 

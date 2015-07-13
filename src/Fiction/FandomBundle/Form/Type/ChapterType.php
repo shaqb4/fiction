@@ -24,8 +24,10 @@ class ChapterType extends AbstractType
 	{		
 		$chapters = array();
 		$lastChapter = sizeof($this->fandom->getChapters());
+
 		if (!$this->isCreate)
 		{
+            //If editing an existing chapter, make a list containing the index of all chapters
 			for ($i = 1; $i <= $lastChapter; $i++)
 			{
 				$chapters[$i] = $i; 
@@ -33,6 +35,7 @@ class ChapterType extends AbstractType
 		}
 		else
 		{
+            //If creating a new chapter, just set the chapter number to the last chapter + 1
 			$lastChapter++;
 			$this->chapterNumber = $lastChapter;
 			$chapters[$lastChapter] = $lastChapter;
