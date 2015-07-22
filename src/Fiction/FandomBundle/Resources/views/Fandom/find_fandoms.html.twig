@@ -42,15 +42,13 @@
 			</div>	
 			<div class="panel-body">				
 				<section class="editor-content">
-					<h2>Description</h2>
-					{% if fandom.0.description|length > 600 %}
-						{{ (fandom.0.description[:600] ~ '...') |raw }}
-						<br />
-						<a href="{{ path('view_fandom', {'fandomId': fandom.0.id}) }}">Read More</a>
+					{% if fandom.0.description|length > 1000 %}
+						{{ (fandom.0.description[:1000] ~ '...') |raw }}
 					{% else %}
 						{{ fandom.0.description|raw }}
-					{% endif %}
+					{% endif %}					
 				</section>
+                <a href="{{ path('view_fandom', {'fandomId': fandom.0.id}) }}">Read More</a>
 					{% if fandom.0.parents is not empty %}
 						<hr />
 						{% for parent in fandom.0.parents %}
