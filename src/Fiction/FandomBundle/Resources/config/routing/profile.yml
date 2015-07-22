@@ -1,35 +1,41 @@
 create_fandom:
   path: /fandoms/create
   defaults: { _controller: FictionFandomBundle:Fandom:createFandom }
+  methods: [GET, POST]
   requirements: 
     
 edit_fandom:
   path: /fandoms/{fandomId}/edit
   defaults: { _controller: FictionFandomBundle:Fandom:editFandom }
+  methods: [GET, PUT]
   requirements:
     fandomId: \d+
     
 delete_fandom:
   path: /fandoms/{fandomId}/delete
   defaults: { _controller: FictionFandomBundle:Fandom:deleteFandom }
+  methods: [GET, DELETE]
   requirements:
     fandomId: \d+
     
 delete_confirm_fandom:
   path: /fandoms/{fandomId}/delete/confirm
   defaults: { _controller: FictionFandomBundle:Fandom:deleteConfirmFandom }
+  methods: [GET, DELETE]
   requirements:
     fandomId: \d+
    
 create_chapter:
   path: /fandoms/{fandomId}/chapter/create
   defaults: { _controller: FictionFandomBundle:Chapter:createChapter }
+  methods: [GET, POST]
   requirements:
     fandomId: \d+
     
 edit_chapter:
   path: /fandoms/{fandomId}/chapter/{chapterNumber}/edit
   defaults: { _controller: FictionFandomBundle:Chapter:editChapter }
+  methods: [GET, PUT]
   requirements:
     fandomId: \d+
     chapterNumber: \d+
@@ -37,4 +43,5 @@ edit_chapter:
 user_fandoms:
   path: /fandoms
   defaults: { _controller: FictionFandomBundle:Fandom:userFandoms }
+  methods: [GET]
   requirements:

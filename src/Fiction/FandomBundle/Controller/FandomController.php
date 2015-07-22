@@ -20,17 +20,24 @@ class FandomController extends Controller
     	$fandom->setDescription('A mindblowing Fandom summary or description...');
     	$fandom->setUser($this->get('security.token_storage')->getToken()->getUser());
     	
-    	$form = $this->createForm(new FandomType(), $fandom);
+    	$form = $this->createForm(new FandomType(), $fandom, array(
+            'method' => 'POST'
+        ));
     	
     	$form->handleRequest($request);
     	
-    	if ($form->isValid())
+    	if ($form->isSubmitted() && $form->isValid())
     	{
             $fandom->setWordCount(0);
             
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($fandom);
     		$em->flush();
+            
+            return $this->redirect($this->generateUrl('edit_fandom', array(
+    					'fandomId' => $fandom->getId() 
+    				))
+    		);
     	}
     	
         return $this->render('FictionFandomBundle:Fandom:create.html.twig', array(
@@ -43,10 +50,12 @@ class FandomController extends Controller
     	
     	$repository = $this->getDoctrine()->getRepository('FictionFandomBundle:Fandom');
     	
-    	$form = $this->createForm(new FandomFilterType());
+    	$form = $this->createForm(new FandomFilterType(), null, array(
+            'method' => 'GET'
+        ));
     	
     	$form->handleRequest($request);
-    	if ($form->isValid()) {
+    	if ($form->isSubmitted() && $form->isValid()) {
     		$data = $form->getData();
     		
     		$page = 1;
@@ -133,7 +142,7 @@ class FandomController extends Controller
 	    	
 	    	$chapterEditForm->handleRequest($request);
 	    	 
-	    	if ($chapterEditForm->isValid())
+	    	if ($chapterEditForm->isSubmitted() && $chapterEditForm->isValid())
 	    	{
 	    		$newChapter = $chapterEditForm->get('chapters')->getData();
 	    		return $this->redirect($this->generateUrl('edit_chapter', array(
@@ -152,11 +161,13 @@ class FandomController extends Controller
     	/**
     	 * Create a form to edit general fandom info (i.e. title, description, parents)
     	 */
-    	$form = $this->createForm(new FandomType(), $fandom);
+    	$form = $this->createForm(new FandomType(), $fandom, array(
+            'method' => 'PUT'
+        ));
     	 
     	$form->handleRequest($request);
     	 
-    	if ($form->isValid())
+    	if ($form->isSubmitted() && $form->isValid())
     	{
     		$em = $this->getDoctrine()->getManager();
     		

@@ -35,11 +35,13 @@ class ChapterController extends Controller
 	    {
 	    	$chapter->setFandom($fandom);
     	
-	    	$form = $this->createForm(new ChapterType($fandom, sizeof($fandom->getChapters()), true), $chapter);
+	    	$form = $this->createForm(new ChapterType($fandom, sizeof($fandom->getChapters()), true), $chapter, array(
+                'method' => 'POST'
+            ));
 	    	
 	    	$form->handleRequest($request);
 	    	
-	    	if ($form->isValid())
+	    	if ($form->isSubmitted() && $form->isValid())
 	    	{
 	    		$em = $this->getDoctrine()->getManager();
 	    		$em->persist($chapter);
@@ -101,11 +103,13 @@ class ChapterController extends Controller
 	    		return $this->render('FictionAppBundle::error.html.twig', array());
     		}
     		
-    		$form = $this->createForm(new ChapterType($fandom, $chapterNumber), $chapter);
+    		$form = $this->createForm(new ChapterType($fandom, $chapterNumber), $chapter, array(
+                'method' => 'PUT'
+            ));
     
     		$form->handleRequest($request);
     		
-    		if ($form->isValid())
+    		if ($form->isSubmitted() && $form->isValid())
     		{
     			if ($chapterNumber <= $chapter->getChapterNumber())
     			{
@@ -189,7 +193,7 @@ class ChapterController extends Controller
     		
     	$form->handleRequest($request);
     	
-    	if ($form->isValid())
+    	if ($form->isSubmitted() && $form->isValid())
     	{
     		$newChapter = $form->get('chapters')->getData();
     		return $this->redirect($this->generateUrl('view_chapter', array(

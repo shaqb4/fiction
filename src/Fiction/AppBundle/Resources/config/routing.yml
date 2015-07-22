@@ -1,9 +1,11 @@
 homepage:
   path: /
+  methods: [GET]
   defaults: { _controller: FictionAppBundle:Default:index }
   
 find_community:
-  path: /find/communities
+  path: /communities
+  methods: [GET]
   defaults: { _controller: FictionAppBundle:Default:index }
   
 error:

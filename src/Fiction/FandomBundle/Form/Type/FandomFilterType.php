@@ -24,7 +24,8 @@ class FandomFilterType extends AbstractType
 				'class' => 'FictionFandomBundle:Category',
 				'choice_label' => 'name',
 				'multiple' => true,
-				'expanded' => true
+				'expanded' => true,
+                'required' => false
 		));
 		$builder->add('description', 'textarea', array(
 			'required' => false
@@ -38,6 +39,7 @@ class FandomFilterType extends AbstractType
 				'data_class' => 'Fiction\FandomBundle\Entity\Fandom',
 				'csrf_protection' => false,
 				'method' => 'GET',
+                'validation_groups' => false //No validation for this form 
 				//'csrf_field_name' => '_token',
 				// a unique key to help generate the secret token
 				//'intention'       => 'fandom_item',
