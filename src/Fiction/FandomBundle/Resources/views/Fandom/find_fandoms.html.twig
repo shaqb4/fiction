@@ -43,9 +43,9 @@
 			<div class="panel-body">				
 				<section class="editor-content">
 					{% if fandom.0.description|length > 1000 %}
-						{{ (fandom.0.description[:1000] ~ '...') |raw }}
+						{{ (fandom.0.description[:1000] ~ '...')|e|nl2br }}
 					{% else %}
-						{{ fandom.0.description|raw }}
+						{{ fandom.0.description|e|nl2br }}
 					{% endif %}					
 				</section>
                 <a href="{{ path('view_fandom', {'fandomId': fandom.0.id}) }}">Read More</a>

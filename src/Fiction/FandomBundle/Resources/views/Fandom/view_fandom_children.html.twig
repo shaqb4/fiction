@@ -34,7 +34,7 @@
 			</div>	
 			<div class="panel-body">				
 				<p>
-					{{ fandom.0.description|raw }}
+					{{ fandom.0.description|e|nl2br }}
 				</p>
 					{% if fandom.0.parents is not empty %}
 						<hr />

@@ -10,11 +10,16 @@ Fiction\FandomBundle\Entity\Fandom:
             - Length:
                 min: 1
                 max: 255
-                minMessage: "The fandom title must have at least {{ limit }} characters."
+                minMessage: "The fandom title must be at least {{ limit }} character(s)."
                 maxMessage: "The fandom title must be less than {{ limit }} characters."
             - NotBlank: ~
         description:
             - NotBlank: ~
+            - Length:
+                min: 1
+                max: 1000
+                minMessage: "The fandom description must be at least {{ limit }} character(s)."
+                maxMessage: "The fandom description must be less than {{ limit }} characters."
         created_at:
             - DateTime: ~
         updated_at:

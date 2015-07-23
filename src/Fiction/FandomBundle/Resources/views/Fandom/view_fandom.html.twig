@@ -30,7 +30,7 @@
 					{% endif %}
 				</p>
 				<hr />
-				<p>{{ fandom.description|raw }}</p>
+				<p>{{ fandom.description|e|nl2br }}</p>
 					{% if fandom.parents is not empty %}
 						<hr />
 						{% for parent in fandom.parents %}
@@ -69,7 +69,7 @@
 				</div>
 			</div>	
 			<div class="panel-body">				
-				<p>{{ child.description|raw }}</p>
+				<p>{{ child.description|e|nl2br }}</p>
 					{% if child.parents is not empty %}
 						<hr />
 						{% for parent in child.parents %}
