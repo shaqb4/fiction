@@ -21,7 +21,7 @@ class AppKernel extends Kernel
         	new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Fiction\AppBundle\FictionAppBundle(),
         	new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
-            new Fiction\FandomBundle\FictionFandomBundle(),
+            new Fiction\WorldBundle\FictionWorldBundle(),
         	new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
         	new Hashnz\TwigMarkdownBundle\HashnzTwigMarkdownBundle(),            
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),

@@ -1,0 +1,34 @@
+Fiction\WorldBundle\Entity\Chapter:
+    type: entity
+    repositoryClass: \Fiction\WorldBundle\Entity\ChapterRepository
+    table: chapter
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        content:
+            type: text
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+        chapter_number:
+            type: integer
+        word_count:
+            type: integer
+    manyToOne:
+        world:
+            targetEntity: World
+            inversedBy: chapters
+            joinColumn:
+                name: world_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [setCreatedAtValue, setUpdatedAtValue]
+        preUpdate: [setUpdatedAtValue]

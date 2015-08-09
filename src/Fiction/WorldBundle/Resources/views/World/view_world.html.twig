@@ -1,0 +1,97 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %} {{ world.title }} {% endblock %}
+
+{% block body %}
+	<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-6">
+						<strong class="text-capitalize h3">
+							{{ world.title }} <small><span class="h5">by</span> <em class="h4">{{ world.user.username }}</em>  <span class="h5">on </span><span class="h5">{{ world.updatedAt|localizeddate('medium', 'none') }}</span></small>
+						</strong>
+					</div>
+					<div class="col-md-6 text-right">
+						<strong class="text-capitalize h4">
+							{{ world.worldType.name }}
+						</strong>
+					</div>
+				</div>
+			</div>	
+			<div class="panel-body">				
+				<p>
+					<a href="{{ path('view_world_children', {'worldId': world.id, 'page': 1}) }}" class="">
+						View Extending Worlds
+					</a>
+					{% if world.worldType.id == 1 and world.chapters|length > 0 %}
+						<a href="{{ path('view_chapter', {'worldId': world.id, 'chapterNumber': 1}) }}" class="">
+							Read
+						</a>
+					{% endif %}
+				</p>
+				<hr />
+				<p>{{ world.description|e|nl2br }}</p>
+					{% if world.parents is not empty %}
+						<hr />
+						{% for parent in world.parents %}
+							<span> | </span>
+							<em>
+								<a href="{{ path('view_world', {'worldId': parent.id}) }}" class="">
+									{{ parent.title }}
+								</a>
+							</em>
+						{% endfor %}
+					{% endif %}
+			</div>
+			<div class="panel-footer">
+				<strong><em>Created:</em></strong> {{ world.createdAt|localizeddate('medium', 'short') }}
+				{% if world.worldType.id == 1 %}
+					<strong><em>Chapters:</em></strong> {{ world.chapters|length }}
+				{% endif %}
+			</div>
+		</div>
+		
+		
+	<!--{% for child in world.children %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-6">
+						<strong class="text-capitalize h3">
+							{{ child.title }} <small><span class="h5">by</span> <em class="h4">{{ child.user.username }}</em>  <span class="h5">on </span><span class="h5">{{ child.updatedAt|localizeddate('medium', 'none') }}</span></small>
+						</strong>
+					</div>
+					<div class="col-md-6 text-right">
+						<strong class="text-capitalize h4">
+							{{ child.worldType.name }}
+						</strong>
+					</div>
+				</div>
+			</div>	
+			<div class="panel-body">				
+				<p>{{ child.description|e|nl2br }}</p>
+					{% if child.parents is not empty %}
+						<hr />
+						{% for parent in child.parents %}
+							<span> | </span>
+							<em>
+							{% if parent.worldType.id == 1 %}
+									<a href="{{ path('view_world', {'worldId': parent.id}) }}" class="">
+										{{ parent.title }}
+									</a>
+							{% else %}
+								
+							{% endif %}
+							</em>
+						{% endfor %}
+					{% endif %}
+			</div>
+			<div class="panel-footer">
+				<strong><em>Created:</em></strong> {{ child.createdAt|localizeddate('medium', 'short') }}
+				{% if child.worldType.id == 1 %}
+					<strong><em>Chapters:</em></strong> {{ child.chapters|length }}
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}-->
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %}Create a World{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12">
+			<h4 class="text-info">Select multiple Categories by holding <kbd>ctrl</kbd> (on Windows) or 
+				<kbd>cmd</kbd> (on a Mac) while clicking applicable items.
+			</h4>
+		</div>
+	</div>
+	{# form(form) #}
+	
+	{{ form_start(form) }}
+	    {# render the task's only field: description #}
+	    {{ form_row(form.title) }}
+	
+	   {{ form_label(form.parents) }}
+	    <ul class="parents list-unstyled" data-prototype="{{ form_widget(form.parents.vars.prototype)|e }}">
+	        {# iterate over each existing tag and render its only field: name #}
+	        <!--{% for parent in form.parents %}
+	            <li>{# form_row(parent.id) #}</li>
+	        {% endfor %} -->
+	    </ul>
+	    
+	    {{ form_row(form.world_type) }}
+	    
+	    {{ form_row(form.categories) }}
+	    
+	    {{ form_row(form.description) }}
+	    
+	    {{ form_row(form._token) }}
+	    
+	    {{ form_row(form.Save) }}
+	{{ form_end(form, {'render_rest': false}) }}
+	
+	{{ tinymce_init() }}
+	
+	{% javascripts
+		'@FictionWorldBundle/Resources/public/js/world-parent.js'
+	%}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}

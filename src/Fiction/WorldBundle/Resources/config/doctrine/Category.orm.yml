@@ -1,0 +1,18 @@
+Fiction\WorldBundle\Entity\Category:
+    type: entity
+    table: category
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    manyToMany:
+        worlds:
+            targetEntity: \Fiction\WorldBundle\Entity\World
+            mappedBy: categories
+    lifecycleCallbacks: {  }

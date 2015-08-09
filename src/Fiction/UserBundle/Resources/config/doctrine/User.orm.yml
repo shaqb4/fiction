@@ -10,8 +10,8 @@ Fiction\UserBundle\Entity\User:
     created_at:
       type: datetime
   oneToMany:
-    fandoms:
-      targetEntity: \Fiction\FandomBundle\Entity\Fandom
+    worlds:
+      targetEntity: \Fiction\WorldBundle\Entity\World
       mappedBy: user
   lifecycleCallbacks:
         prePersist: [setCreatedAtValue]

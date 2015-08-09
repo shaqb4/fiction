@@ -1,0 +1,34 @@
+fiction_world_profile:
+  resource: "@FictionWorldBundle/Resources/config/routing/profile.yml"
+  prefix: "/profile"
+
+view_world:
+  path: /worlds/{worldId}
+  defaults: { _controller: FictionWorldBundle:World:viewWorld }
+  methods: [GET]
+  requirements:
+    page: \d+
+    worldId: \d+
+  
+view_world_children:
+  path: /worlds/{worldId}/page/{page}
+  defaults: { _controller: FictionWorldBundle:World:viewWorldChildren }
+  methods: [GET]
+  requirements:
+    page: \d+
+    worldId: \d+
+
+find_world:
+  path: /worlds/page/{page}
+  defaults: { _controller: FictionWorldBundle:World:findWorlds }
+  methods: [GET]
+  requirements:
+    page: \d+ 
+  
+view_chapter:
+  path: /worlds/{worldId}/chapter/{chapterNumber}
+  defaults: { _controller: FictionWorldBundle:Chapter:viewChapter }
+  methods: [GET]
+  requirements:
+    worldId: \d+
+    chapterNumber: \d+ 

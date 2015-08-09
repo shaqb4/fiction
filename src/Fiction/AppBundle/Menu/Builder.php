@@ -33,8 +33,8 @@ class Builder
 				'caret' => true,
 		));
 		
-		$dropdown->addChild('Fandoms', array(
-				'route' => 'find_fandom', 'routeParameters' => array('page' => 1)));
+		$dropdown->addChild('Worlds', array(
+				'route' => 'find_world', 'routeParameters' => array('page' => 1)));
 		$dropdown->addChild('Communities', array('route' => 'find_community'));
 		
 		return $menu;
@@ -54,8 +54,8 @@ class Builder
 			));
 			
 			$dropdown->addChild('Profile', array('route' => 'fos_user_profile_show'));
-			$dropdown->addChild('Fandoms', array(
-					'route' => 'user_fandoms'));
+			$dropdown->addChild('Worlds', array(
+					'route' => 'user_worlds'));
 			$dropdown->addChild('Communities', array('route' => 'user_communities'));
 			$dropdown->addChild('d1', array('attributes' => array('divider' => true)));
 			$dropdown->addChild('Sign Out', array('route' => 'fos_user_security_logout'));

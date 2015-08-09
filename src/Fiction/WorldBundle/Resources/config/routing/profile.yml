@@ -1,0 +1,47 @@
+create_world:
+  path: /worlds/create
+  defaults: { _controller: FictionWorldBundle:World:createWorld }
+  methods: [GET, POST]
+  requirements: 
+    
+edit_world:
+  path: /worlds/{worldId}/edit
+  defaults: { _controller: FictionWorldBundle:World:editWorld }
+  methods: [GET, PUT]
+  requirements:
+    worldId: \d+
+    
+delete_world:
+  path: /worlds/{worldId}/delete
+  defaults: { _controller: FictionWorldBundle:World:deleteWorld }
+  methods: [GET, DELETE]
+  requirements:
+    worldId: \d+
+    
+delete_confirm_world:
+  path: /worlds/{worldId}/delete/confirm
+  defaults: { _controller: FictionWorldBundle:World:deleteConfirmWorld }
+  methods: [GET, DELETE]
+  requirements:
+    worldId: \d+
+   
+create_chapter:
+  path: /worlds/{worldId}/chapter/create
+  defaults: { _controller: FictionWorldBundle:Chapter:createChapter }
+  methods: [GET, POST]
+  requirements:
+    worldId: \d+
+    
+edit_chapter:
+  path: /worlds/{worldId}/chapter/{chapterNumber}/edit
+  defaults: { _controller: FictionWorldBundle:Chapter:editChapter }
+  methods: [GET, PUT]
+  requirements:
+    worldId: \d+
+    chapterNumber: \d+
+    
+user_worlds:
+  path: /worlds
+  defaults: { _controller: FictionWorldBundle:World:userWorlds }
+  methods: [GET]
+  requirements:

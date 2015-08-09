@@ -26,7 +26,7 @@ class User extends BaseUser
 	 * 
 	 * @var ArrayCollection
 	 */
-	protected $fandoms;
+	protected $worlds;
 	
 	/**
 	 * Constructor
@@ -35,7 +35,7 @@ class User extends BaseUser
 	{
 		parent::__construct();
 		
-		$this->fandoms = new ArrayCollection();
+		$this->worlds = new ArrayCollection();
 	}
 
     /**
@@ -83,35 +83,35 @@ class User extends BaseUser
     }
 
     /**
-     * Add fandoms
+     * Add worlds
      *
-     * @param \Fiction\FandomBundle\Entity\Fandom $fandoms
+     * @param \Fiction\WorldBundle\Entity\World $worlds
      * @return User
      */
-    public function addFandom(\Fiction\FandomBundle\Entity\Fandom $fandoms)
+    public function addWorld(\Fiction\WorldBundle\Entity\World $worlds)
     {
-        $this->fandoms[] = $fandoms;
+        $this->worlds[] = $worlds;
 
         return $this;
     }
 
     /**
-     * Remove fandoms
+     * Remove worlds
      *
-     * @param \Fiction\FandomBundle\Entity\Fandom $fandoms
+     * @param \Fiction\WorldBundle\Entity\World $worlds
      */
-    public function removeFandom(\Fiction\FandomBundle\Entity\Fandom $fandoms)
+    public function removeWorld(\Fiction\WorldBundle\Entity\World $worlds)
     {
-        $this->fandoms->removeElement($fandoms);
+        $this->worlds->removeElement($worlds);
     }
 
     /**
-     * Get fandoms
+     * Get worlds
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getFandoms()
+    public function getWorlds()
     {
-        return $this->fandoms;
+        return $this->worlds;
     }
 }

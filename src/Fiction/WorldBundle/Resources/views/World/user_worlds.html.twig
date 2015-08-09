@@ -1,0 +1,72 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %}Your Worlds{% endblock %}
+
+{% block body %}
+	<div class="row bottom-buffer-10">
+		<div class="col-md-2 col-md-offset-10">
+			<a href="{{ path('create_world') }}" class="btn btn-primary pull-right">
+				Create
+			</a>
+		</div>
+	</div>
+	{% for world in worlds %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row ">
+					<div class="col-md-6">
+						<span class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id="world-{{ world.id }}-actions">
+								Actions
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="world-{{ world.id }}-actions">
+								{% if world.worldType.id == 1 and world.chapters|length > 0 %}
+									<li role="presentation">
+										<a role="menuitem" tabindex="-1" href="{{ path('view_chapter', {'worldId': world.id, 'chapterNumber': 1}) }}">
+											Read
+										</a>
+									</li>
+								{% endif %}
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{{ path('edit_world', {'worldId': world.id}) }}">
+										Edit
+									</a>
+								</li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{{ path('view_world', {'worldId': world.id}) }}">
+										View World
+									</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{{ path('delete_confirm_world', {'worldId': world.id}) }}">
+										Delete World
+									</a>
+								</li>
+							</ul>
+						</span>
+						<strong class="text-capitalize h3 vertical-center">
+							{{ world.title }}
+							{# world.updatedAt|localizeddate('medium', 'none') #}
+						</strong>
+					</div>
+					<div class="col-md-6 text-right">
+						<strong class="text-capitalize h4 vertical-center">
+							{{ world.worldType.name }}
+						</strong>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p>{{ world.description|e|nl2br }}</p>
+			</div>
+			<div class="panel-footer">
+				<strong><em>Created:</em></strong> {{ world.createdAt|localizeddate('medium', 'short') }}
+				{% if world.worldType.id == 1 %}
+					<strong><em>Chapters:</em></strong> {{ world.chapters|length }}
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}
