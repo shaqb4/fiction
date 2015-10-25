@@ -14,31 +14,31 @@
 				<div class="row">
 					<div class="col-md-6">
 						<strong class="text-capitalize h3">
-							<a href="{{ path('view_world', {'worldId': world.0.id}) }}" class="">
-								{{ world.0.title }}
+							<a href="{{ path('view_world', {'worldId': world.id}) }}" class="">
+								{{ world.title }}
 							</a> 
 							<small>
 								<span class="h5">by</span> 
-								<em class="h4">{{ world.0.user.username }}</em>  
+								<em class="h4">{{ world.user.username }}</em>  
 								<span class="h5">on </span>
-								<span class="h5">{{ world.0.updatedAt|localizeddate('medium', 'none') }}</span>
+								<span class="h5">{{ world.updatedAt|localizeddate('medium', 'none') }}</span>
 							</small>
 						</strong>
 					</div>
 					<div class="col-md-6 text-right">
 						<strong class="text-capitalize h4">
-							{{ world.0.worldType.name }}
+							{{ world.worldType.name }}
 						</strong>
 					</div>
 				</div>
 			</div>	
 			<div class="panel-body">				
 				<p>
-					{{ world.0.description|e|nl2br }}
+					{{ world.description|e|nl2br }}
 				</p>
-					{% if world.0.parents is not empty %}
+					{% if world.parents is not empty %}
 						<hr />
-						{% for parent in world.0.parents %}
+						{% for parent in world.parents %}
 							<span> | </span>
 							<em>
 								<a href="{{ path('view_world', {'worldId': parent.id}) }}" class="">
@@ -48,10 +48,10 @@
 					{% endif %}
 			</div>
 			<div class="panel-footer">
-				<strong><em>Created:</em></strong> {{ world.0.createdAt|localizeddate('medium', 'short') }}
-				{% if world.0.worldType.id == 1 %}
+				<strong><em>Created:</em></strong> {{ world.createdAt|localizeddate('medium', 'short') }}
+				{# {% if world.worldType.id == 1 %}
 					<strong><em>Chapters:</em></strong> {{ world.chapter_count }}
-				{% endif %}
+				{% endif %} #}
 			</div>
 		</div>
 	{% endfor %}

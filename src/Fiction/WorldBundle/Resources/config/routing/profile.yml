@@ -25,20 +25,12 @@ delete_confirm_world:
   requirements:
     worldId: \d+
    
-create_chapter:
-  path: /worlds/{worldId}/chapter/create
-  defaults: { _controller: FictionWorldBundle:Chapter:createChapter }
-  methods: [GET, POST]
+view_stories:
+  path: /worlds/{worldId}/stories
+  defaults: { _controller: FictionWorldBundle:World:viewStories }
+  methods: [GET]
   requirements:
     worldId: \d+
-    
-edit_chapter:
-  path: /worlds/{worldId}/chapter/{chapterNumber}/edit
-  defaults: { _controller: FictionWorldBundle:Chapter:editChapter }
-  methods: [GET, PUT]
-  requirements:
-    worldId: \d+
-    chapterNumber: \d+
     
 user_worlds:
   path: /worlds

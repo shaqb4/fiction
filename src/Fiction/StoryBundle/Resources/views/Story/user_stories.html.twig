@@ -1,0 +1,71 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %}Your Stories{% endblock %}
+
+{% block body %}
+	<div class="row bottom-buffer-10">
+		<div class="col-md-2 col-md-offset-10">
+			<a href="{{ path('create_story') }}" class="btn btn-primary pull-right">
+				Create
+			</a>
+		</div>
+	</div>
+	{% for story in stories %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row ">
+					<div class="col-md-6">
+						<span class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id="story-{{ story.id }}-actions">
+								Actions
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="story-{{ story.id }}-actions">
+								{% if story.chapters|length > 0 %}
+									<li role="presentation">
+										<a role="menuitem" tabindex="-1" href="{{ path('view_chapter', {'storyId': story.id, 'chapterNumber': 1}) }}">
+											Read
+										</a>
+									</li>
+								{% endif %}
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{{ path('edit_story', {'storyId': story.id}) }}">
+										Edit
+									</a>
+								</li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{{ path('view_story', {'storyId': story.id}) }}">
+										View Story
+									</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="{{ path('delete_confirm_story', {'storyId': story.id}) }}">
+										Delete Story
+									</a>
+								</li>
+							</ul>
+						</span>
+						<strong class="text-capitalize h3 vertical-center">
+							{{ story.title }}
+							{# story.updatedAt|localizeddate('medium', 'none') #}
+						</strong>
+					</div>
+					<div class="col-md-6 text-right">
+						<strong class="text-capitalize h4 vertical-center">
+							?
+						</strong>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p>{{ story.description|e|nl2br }}</p>
+			</div>
+			<div class="panel-footer">
+				<strong><em>Created:</em></strong> {{ story.createdAt|localizeddate('medium', 'short') }}
+                				
+				<strong><em>Chapters:</em></strong> {{ story.chapters|length }}				
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

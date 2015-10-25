@@ -1,0 +1,45 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %} {{ story.title }} {% endblock %}
+
+{% block body %}
+	<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-6">
+						<strong class="text-capitalize h3">
+							{{ story.title }} <small><span class="h5">by</span> <em class="h4">{{ story.user.username }}</em>  <span class="h5">on </span><span class="h5">{{ story.updatedAt|localizeddate('medium', 'none') }}</span></small>
+						</strong>
+					</div>
+					<div class="col-md-6 text-right">
+						<strong class="text-capitalize h4">
+							?
+						</strong>
+					</div>
+				</div>
+			</div>	
+			<div class="panel-body">				
+				<p>
+					{% if story.chapters|length > 0 %}
+						<a href="{{ path('view_chapter', {'storyId': story.id, 'chapterNumber': 1}) }}" class="">
+							Read
+						</a>
+					{% endif %}
+				</p>
+				<hr />
+				<p>{{ story.description|e|nl2br }}</p>
+					{% if story.world is not empty %}
+						<hr />
+						<em>
+                            <a href="{{ path('view_world', {'worldId': story.world.id}) }}" class="">
+                                {{ story.world.title }}
+                            </a>
+                        </em>
+					{% endif %}
+			</div>
+			<div class="panel-footer">
+				<strong><em>Created:</em></strong> {{ story.createdAt|localizeddate('medium', 'short') }}
+				<strong><em>Chapters:</em></strong> {{ story.chapters|length }}				
+			</div>
+		</div>
+{% endblock %}

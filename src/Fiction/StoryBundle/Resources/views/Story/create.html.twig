@@ -1,15 +1,15 @@
 {% extends 'FictionAppBundle:Base:layout.html.twig' %}
 
-{% block title %}Create a World{% endblock %}
+{% block title %}Create a Story{% endblock %}
 
 {% block body %}
-	<!-- <div class="row">
+	<div class="row">
 		<div class="col-md-12">
 			<h4 class="text-info">Select multiple Categories by holding <kbd>ctrl</kbd> (on Windows) or 
 				<kbd>cmd</kbd> (on a Mac) while clicking applicable items.
 			</h4>
 		</div>
-	</div> -->
+	</div>
 	{# form(form) #}
 	
 	{{ form_start(form) }}
@@ -24,7 +24,9 @@
 	        {% endfor %} -->
 	    </ul>
 	    
-	    {{ form_row(form.world_type) }}
+	    {{ form_row(form.world) }}
+	    
+	    {{ form_row(form.categories) }}
 	    
 	    {{ form_row(form.description) }}
 	    
@@ -34,10 +36,4 @@
 	{{ form_end(form, {'render_rest': false}) }}
 	
 	{{ tinymce_init() }}
-	
-	{% javascripts
-		'@FictionWorldBundle/Resources/public/js/world-parent.js'
-	%}
-		<script type="text/javascript" src="{{ asset_url }}"></script>
-	{% endjavascripts %}
 {% endblock %}

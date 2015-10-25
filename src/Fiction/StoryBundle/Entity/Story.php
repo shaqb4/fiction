@@ -1,14 +1,14 @@
 <?php
 
-namespace Fiction\WorldBundle\Entity;
+namespace Fiction\StoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * World
+ * Story
  */
-class World
+class Story
 {
     /**
      * @var integer
@@ -25,6 +25,11 @@ class World
      */
     private $description;
     
+    /**
+     * @var ArrayCollection
+     */
+    protected $chapters;
+    
 	/**
      * @var \DateTime
      */
@@ -38,34 +43,52 @@ class World
     /**
      * 
      * @var \Fiction\UserBundle\Entity\User
+     * @TODO
      */
-    protected $user;
+    //protected $user;
     
     /**
      * 
-     * @var \Fiction\WorldBundle\Entity\WorldType
+     * @var \Fiction\StoryBundle\Entity\StoryCategory
      */
-    protected $world_type;
+    protected $categories;
+    
+    /**
+     * 
+     * @var \Fiction\WorldBundle\Entity\World
+     */
+    protected $world;
     
     /**
      * 
      * @var ArrayCollection
+     * @TODO
      */
-    protected $parents;
+    //protected $parents;
     
     /**
      * 
      * @var ArrayCollection
+     * @TODO
      */
-    protected $children;
-        
+    //protected $children;
+    
+    /**
+    *
+    * @var integer
+    */
+    private $word_count;
+    
     /**
      * Constructor
      */
     public function __construct()
     {
-    	$this->parents = new ArrayCollection();
-    	$this->children = new ArrayCollection();
+    	$this->chapters = new ArrayCollection();
+    	$this->categories = new ArrayCollection();
+        //@TODO
+    	//$this->parents = new ArrayCollection();
+    	//$this->children = new ArrayCollection();
     }
 
     /**
@@ -82,7 +105,7 @@ class World
      * Set title
      *
      * @param string $title
-     * @return World
+     * @return Story
      */
     public function setTitle($title)
     {
@@ -105,7 +128,7 @@ class World
      * Set description
      *
      * @param string $description
-     * @return World
+     * @return Story
      */
     public function setDescription($description)
     {
@@ -125,10 +148,43 @@ class World
     }
 
     /**
+     * Add chapters
+     *
+     * @param \Fiction\StoryBundle\Entity\Chapter $chapters
+     * @return Story
+     */
+    public function addChapter(\Fiction\StoryBundle\Entity\Chapter $chapters)
+    {
+        $this->chapters[] = $chapters;
+
+        return $this;
+    }
+
+    /**
+     * Remove chapters
+     *
+     * @param \Fiction\StoryBundle\Entity\Chapter $chapters
+     */
+    public function removeChapter(\Fiction\StoryBundle\Entity\Chapter $chapters)
+    {
+        $this->chapters->removeElement($chapters);
+    }
+
+    /**
+     * Get chapters
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChapters()
+    {
+        return $this->chapters;
+    }
+
+    /**
      * Set created_at
      *
      * @param \DateTime $createdAt
-     * @return World
+     * @return Story
      */
     public function setCreatedAt($createdAt)
     {
@@ -151,7 +207,7 @@ class World
      * Set updated_at
      *
      * @param \DateTime $updatedAt
-     * @return World
+     * @return Story
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -194,46 +250,83 @@ class World
      * Set user
      *
      * @param \Fiction\UserBundle\Entity\User $user
-     * @return World
+     * @return Story
      */
+    /* @TODO
     public function setUser(\Fiction\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
         return $this;
     }
+    */
 
     /**
      * Get user
      *
      * @return \Fiction\UserBundle\Entity\User 
      */
+     /* @TODO
     public function getUser()
     {
         return $this->user;
     }
-
+    */
+    
     /**
-     * Set world_type
+     * Add categories
      *
-     * @param \Fiction\WorldBundle\Entity\WorldType $worldType
-     * @return World
+     * @param \Fiction\StoryBundle\Entity\StoryCategory $categories
+     * @return Story
      */
-    public function setWorldType(\Fiction\WorldBundle\Entity\WorldType $worldType = null)
+    public function addStoryCategory(\Fiction\StoryBundle\Entity\StoryCategory $categories)
     {
-        $this->world_type = $worldType;
+        $this->categories[] = $categories;
 
         return $this;
     }
 
     /**
-     * Get world_type
+     * Remove categories
      *
-     * @return \Fiction\WorldBundle\Entity\WorldType 
+     * @param \Fiction\StoryBundle\Entity\StoryCategory $categories
      */
-    public function getWorldType()
+    public function removeStoryCategory(\Fiction\StoryBundle\Entity\StoryCategory $categories)
     {
-        return $this->world_type;
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStoryCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Set world
+     *
+     * @param \Fiction\WorldBundle\Entity\World $world
+     * @return Story
+     */
+    public function setWorld(\Fiction\WorldBundle\Entity\World $world = null)
+    {
+        $this->world = $world;
+
+        return $this;
+    }
+
+    /**
+     * Get world
+     *
+     * @return \Fiction\WorldBundle\Entity\World 
+     */
+    public function getWorld()
+    {
+        return $this->world;
     }
 
     /**
@@ -242,32 +335,38 @@ class World
      * @param \Fiction\WorldBundle\Entity\World $children
      * @return World
      */
+    /* @TODO
     public function addChild(\Fiction\WorldBundle\Entity\World $children)
     {
         $this->children[] = $children;
 
         return $this;
     }
+    */
 
     /**
      * Remove children
      *
      * @param \Fiction\WorldBundle\Entity\World $children
      */
+     /* @TODO
     public function removeChild(\Fiction\WorldBundle\Entity\World $children)
     {
         $this->children->removeElement($children);
     }
+    */
 
     /**
      * Get children
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
+     /* @TODO
     public function getChildren()
     {
         return $this->children;
     }
+    */
 
     /**
      * Add parents
@@ -275,30 +374,61 @@ class World
      * @param \Fiction\WorldBundle\Entity\World $parents
      * @return World
      */
+     /* @TODO
     public function addParent(\Fiction\WorldBundle\Entity\World $parents)
     {
         $this->parents[] = $parents;
 
         return $this;
     }
+    */
 
     /**
      * Remove parents
      *
      * @param \Fiction\WorldBundle\Entity\World $parents
      */
+     /* @TODO
     public function removeParent(\Fiction\WorldBundle\Entity\World $parents)
     {
         $this->parents->removeElement($parents);
     }
+    */
 
     /**
      * Get parents
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
+     /* @TODO
     public function getParents()
     {
         return $this->parents;
+    }
+    */
+
+
+    /**
+     * Set wordCount
+     *
+     * @param integer $wordCount
+     *
+     * @return Story
+     */
+    public function setWordCount($wordCount)
+    {
+        $this->word_count = $wordCount;
+
+        return $this;
+    }
+
+    /**
+     * Get wordCount
+     *
+     * @return integer
+     */
+    public function getWordCount()
+    {
+        return $this->word_count;
     }
 }

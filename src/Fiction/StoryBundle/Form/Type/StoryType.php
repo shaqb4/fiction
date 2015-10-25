@@ -1,11 +1,12 @@
 <?php
-namespace Fiction\WorldBundle\Form\Type;
+namespace Fiction\StoryBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Fiction\WorldBundle\Form\Type\WorldParentType;
-use Fiction\WorldBundle\Form\DataTransformer\ParentToNumberTransformer;
+//use Fiction\WorldBundle\Form\Type\WorldParentType;
+use Fiction\MarkdownEditorBundle\Form\Type\MarkdownType;
+//use Fiction\WorldBundle\Form\DataTransformer\ParentToNumberTransformer;
 
 class WorldType extends AbstractType
 {
@@ -21,19 +22,24 @@ class WorldType extends AbstractType
 				'allow_delete' => true))
 				->addModelTransformer(new ParentToNumberTransformer($em))
 		);*/
-		$builder->add('parents', 'collection', array(
+		/*$builder->add('parents', 'collection', array(
 			'type' => 'world_parent',
 			'allow_add' => true,
 			//'by_reference' => false,
 			'allow_delete' => true
-		));
+		));*/
 		
 		$builder->add('title', 'text');
-		$builder->add('world_type', 'entity', array(
-				'class' => 'FictionWorldBundle:WorldType',
+		$builder->add('world', 'entity', array(
+				'class' => 'FictionWorldBundle:World',
 				'choice_label' => 'name'
 		));
-        
+		$builder->add('categories', 'entity', array(
+				'class' => 'FictionStoryBundle:StoryCategory',
+				'choice_label' => 'name',
+				'multiple' => true,
+				'expanded' => true
+		));
 		$builder->add('description', 'pure_textarea', array(
 			'attr' => array(
 				'rows' => '10'				
@@ -45,11 +51,11 @@ class WorldType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'Fiction\WorldBundle\Entity\World',
+				'data_class' => 'Fiction\StoryBundle\Entity\Story',
 				'csrf_protection' => true,
 				'csrf_field_name' => '_token',
 				// a unique key to help generate the secret token
-				'intention'       => 'world_item',
+				'intention'       => 'story_item',
 		));
 		/*->setRequired(array(
 			'em'
@@ -62,6 +68,6 @@ class WorldType extends AbstractType
 
 	public function getName()
 	{
-		return 'world';
+		return 'story';
 	}
 }

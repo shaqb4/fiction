@@ -1,16 +1,16 @@
 <?php
 
-namespace Fiction\WorldBundle\Controller;
+namespace Fiction\StoryBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Fiction\WorldBundle\Entity\World;
-use Fiction\WorldBundle\Entity\Chapter;
-use Fiction\WorldBundle\Form\Type\ChapterType;
+use Fiction\StoryBundle\Entity\Story;
+use Fiction\StoryBundle\Entity\Chapter;
+use Fiction\StoryBundle\Form\Type\ChapterType;
 
 class ChapterController extends Controller
 {	
-    public function createChapterAction(Request $request, $worldId)
+    public function createChapterAction(Request $request, $storyId)
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
     	
@@ -18,14 +18,14 @@ class ChapterController extends Controller
     	$chapter->setTitle('Chapter Title...');
     	$chapter->setContent('Once upon a time...');
 		
-		$repository = $this->getDoctrine()->getRepository('FictionWorldBundle:World');
-        $world = $repository->findOneById($worldId);
+		$repository = $this->getDoctrine()->getRepository('FictionStoryBundle:Story');
+        $story = $repository->findOneById($storyId);
         
-        if ($this->get('security.authorization_checker')->isGranted('edit', $world) === false)
+        if ($this->get('security.authorization_checker')->isGranted('edit', $story) === false)
         {
             $request->getSession()->getFlashBag()->add(
 				'error',
-				'Oops! You don\'t have permission to edit this world. 
+				'Oops! You don\'t have permission to edit this story. 
 	    			You can view your stories in your <a href=\''.$this->generateUrl('user_worlds').'\'>profile</a>!'
 			);
 	    	
@@ -33,9 +33,9 @@ class ChapterController extends Controller
         } 
 	    else
 	    {
-	    	$chapter->setWorld($world);
+	    	$chapter->setStory($story);
     	
-	    	$form = $this->createForm(new ChapterType($world, sizeof($world->getChapters()), true), $chapter, array(
+	    	$form = $this->createForm(new ChapterType($story, sizeof($story->getChapters()), true), $chapter, array(
                 'method' => 'POST'
             ));
 	    	
@@ -47,9 +47,9 @@ class ChapterController extends Controller
 	    		$em->persist($chapter);
 				
 				
-				$totalWorldWords = $world->getWordCount() + str_word_count($chapter->getContent(), 0, '0123456789');
-				$world->setWordCount($totalWorldWords);
-				$em->persist($world);
+				$totalStoryWords = $story->getWordCount() + str_word_count($chapter->getContent(), 0, '0123456789');
+				$story->setWordCount($totalStoryWords);
+				$em->persist($story);
 				
 				$chapter->setWordCount(str_word_count($chapter->getContent(), 0, '0123456789'));
 				$em->persist($chapter);
@@ -57,30 +57,30 @@ class ChapterController extends Controller
 				$em->flush();
 				
 				return $this->redirect($this->generateUrl('edit_chapter', array(
-    					'worldId' => $worldId, 
+    					'storyId' => $storyId, 
     					'chapterNumber' => $chapter->getChapterNumber()))
     			);
 	    	}
 	    	
-	        return $this->render('FictionWorldBundle:Chapter:create.html.twig', array(
+	        return $this->render('FictionStoryBundle:Chapter:create.html.twig', array(
 	        	'form' => $form->createView(),
-	        	'world' => $world->getTitle()
+	        	'story' => $story->getTitle()
 	        ));
 	    }  
     }
     
-    public function editChapterAction(Request $request, $worldId, $chapterNumber)
+    public function editChapterAction(Request $request, $storyId, $chapterNumber)
     {
     	$user = $this->get('security.token_storage')->getToken()->getUser();
     	 
-    	$repository = $this->getDoctrine()->getRepository('FictionWorldBundle:World');
-        $world = $repository->findOneById($worldId);
+    	$repository = $this->getDoctrine()->getRepository('FictionStoryBundle:Story');
+        $story = $repository->findOneById($storyId);
         
-        if ($this->get('security.authorization_checker')->isGranted('edit', $world) === false)
+        if ($this->get('security.authorization_checker')->isGranted('edit', $story) === false)
         {
             $request->getSession()->getFlashBag()->add(
 				'error',
-				'Oops! You don\'t have permission to edit this world. 
+				'Oops! You don\'t have permission to edit this story. 
 	    			You can view your stories in your <a href=\''.$this->generateUrl('user_worlds').'\'>profile</a>!'
 			);
 	    	
@@ -88,22 +88,22 @@ class ChapterController extends Controller
         } 
     	else
     	{
-    		$chapter = $this->getDoctrine()->getRepository('FictionWorldBundle:Chapter')
-    		->findOneBy(array('world' => $world, 'chapter_number' => $chapterNumber));
+    		$chapter = $this->getDoctrine()->getRepository('FictionStoryBundle:Chapter')
+    		->findOneBy(array('story' => $story, 'chapter_number' => $chapterNumber));
     		 
     		if (!$chapter) 
 			{
 				$request->getSession()->getFlashBag()->add(
 					'error',
 					'Oops! This chapter doesn\'t exist. 
-	    				You can edit your world and its chapters <a href=\''.$this->generateUrl('edit_world', array('worldId' => $worldId)).'\'>
+	    				You can edit your story and its chapters <a href=\''.$this->generateUrl('edit_world', array('worldId' => $worldId)).'\'>
 						here</a>!'
 				);
 	    	
 	    		return $this->render('FictionAppBundle::error.html.twig', array());
     		}
     		
-    		$form = $this->createForm(new ChapterType($world, $chapterNumber), $chapter, array(
+    		$form = $this->createForm(new ChapterType($story, $chapterNumber), $chapter, array(
                 'method' => 'PUT'
             ));
     
@@ -122,8 +122,8 @@ class ChapterController extends Controller
     				$startChapter = $chapter->getChapterNumber();
     			}
     			
-    			$updatedChapters = $this->getDoctrine()->getRepository('FictionWorldBundle:Chapter')
-    			->getUpdatedWorldChapters($world, $startChapter, $endChapter);
+    			$updatedChapters = $this->getDoctrine()->getRepository('FictionStoryBundle:Chapter')
+    			->getUpdatedStoryChapters($story, $startChapter, $endChapter);
     			
     			$em = $this->getDoctrine()->getManager();
     			
@@ -149,10 +149,10 @@ class ChapterController extends Controller
     				$em->persist($c);
     			}
     			
-				//Get the world word count, then add the edited chapters new word count and subtract its original word count				
-				$totalWorldWords = $world->getWordCount() + str_word_count($chapter->getContent(), 0, '0123456789') - $chapter->getWordCount();
-				$world->setWordCount($totalWorldWords);
-				$em->persist($world);
+				//Get the story word count, then add the edited chapters new word count and subtract its original word count				
+				$totalStoryWords = $story->getWordCount() + str_word_count($chapter->getContent(), 0, '0123456789') - $chapter->getWordCount();
+				$story->setWordCount($totalStoryWords);
+				$em->persist($story);
 				
 				$chapter->setWordCount(str_word_count($chapter->getContent(), 0, '0123456789'));
 				$em->persist($chapter);
@@ -160,32 +160,32 @@ class ChapterController extends Controller
 				$em->flush();
     			
     			return $this->redirect($this->generateUrl('edit_chapter', array(
-    					'worldId' => $worldId, 
+    					'storyId' => $storyId, 
     					'chapterNumber' => $chapter->getChapterNumber()))
     			);
     		}
     
-    		return $this->render('FictionWorldBundle:Chapter:edit.html.twig', array(
+    		return $this->render('FictionStoryBundle:Chapter:edit.html.twig', array(
     				'form' => $form->createView(),
-    				'world' => $world->getTitle(),
-    				'worldId' => $worldId,
+    				'story' => $story->getTitle(),
+    				'storyId' => $storyId,
     				'chapter' => $chapter->getTitle(),
     		));
     	}
     }
     
-    public function viewChapterAction(Request $request, $worldId, $chapterNumber)
+    public function viewChapterAction(Request $request, $storyId, $chapterNumber)
     {
-    	$world = $this->getDoctrine()->getRepository('FictionWorldBundle:World')->findOneById($worldId);
+    	$story = $this->getDoctrine()->getRepository('FictionStoryBundle:Story')->findOneById($storyId);
     	
-    	$chapter = $this->getDoctrine()->getRepository('FictionWorldBundle:Chapter')
-    				->getWorldChapter($world, $chapterNumber);
+    	$chapter = $this->getDoctrine()->getRepository('FictionStoryBundle:Chapter')
+    				->getStoryChapter($story, $chapterNumber);
     	    	
     	$form = $this->createFormBuilder()
     		->setMethod('GET')
     		->add('chapters', 'entity', array(
-    			'class' => 'FictionWorldBundle:Chapter',
-    			'choices' => $this->getDoctrine()->getRepository('FictionWorldBundle:Chapter')->getAllWorldChapters($world),
+    			'class' => 'FictionStoryBundle:Chapter',
+    			'choices' => $this->getDoctrine()->getRepository('FictionStoryBundle:Chapter')->getAllStoryChapters($story),
     			'choice_label' => 'title',
     			'data' => $chapter
     		))
@@ -197,17 +197,17 @@ class ChapterController extends Controller
     	{
     		$newChapter = $form->get('chapters')->getData();
     		return $this->redirect($this->generateUrl('view_chapter', array(
-    				'worldId' => $worldId, 'chapterNumber' => $newChapter->getChapterNumber())));
+    				'storyId' => $storyId, 'chapterNumber' => $newChapter->getChapterNumber())));
     	}
     	
     	if (is_null($chapter))
     	{
-    		return $this->redirect($this->generateUrl('view_world', array('worldId' => $worldId)));
+    		return $this->redirect($this->generateUrl('view_story', array('storyId' => $storyId)));
     	}
 		else 
 		{
-			return $this->render('FictionWorldBundle:Chapter:view.html.twig', array(
-					'chapter' => $chapter, 'form' => $form->createView(), 'world' => $world
+			return $this->render('FictionStoryBundle:Chapter:view.html.twig', array(
+					'chapter' => $chapter, 'form' => $form->createView(), 'story' => $story
 			));
 		}   
     }

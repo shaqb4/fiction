@@ -1,0 +1,26 @@
+fiction_story_profile:
+  resource: "@FictionStoryBundle/Resources/config/routing/profile.yml"
+  prefix: "/profile/worlds"
+
+view_story:
+  path: /stories/{storyId}
+  defaults: { _controller: FictionStoryBundle:Story:viewStory }
+  methods: [GET]
+  requirements:
+    page: \d+
+    storyId: \d+
+
+find_story:
+  path: /stories/page/{page}
+  defaults: { _controller: FictionStoryBundle:Story:findStories }
+  methods: [GET]
+  requirements:
+    page: \d+ 
+  
+view_chapter:
+  path: /stories/{storyId}/chapter/{chapterNumber}
+  defaults: { _controller: FictionStoryBundle:Chapter:viewChapter }
+  methods: [GET]
+  requirements:
+    storyId: \d+
+    chapterNumber: \d+ 

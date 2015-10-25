@@ -24,11 +24,3 @@ find_world:
   methods: [GET]
   requirements:
     page: \d+ 
-  
-view_chapter:
-  path: /worlds/{worldId}/chapter/{chapterNumber}
-  defaults: { _controller: FictionWorldBundle:Chapter:viewChapter }
-  methods: [GET]
-  requirements:
-    worldId: \d+
-    chapterNumber: \d+ 

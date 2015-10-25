@@ -5,7 +5,8 @@ namespace Fiction\WorldBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Fiction\WorldBundle\Entity\World;
-use Fiction\WorldBundle\Entity\Chapter;
+use Fiction\StoryBundle\Entity\Chapter;
+use Fiction\StoryBundle\Entity\Story;
 use Fiction\WorldBundle\Form\Type\WorldType;
 use Fiction\WorldBundle\Form\Type\WorldFilterType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,9 +28,7 @@ class WorldController extends Controller
     	$form->handleRequest($request);
     	
     	if ($form->isSubmitted() && $form->isValid())
-    	{
-            $world->setWordCount(0);
-            
+    	{            
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($world);
     		$em->flush();
@@ -54,25 +53,27 @@ class WorldController extends Controller
             'method' => 'GET'
         ));
     	
+        $perPage = 2;
     	$form->handleRequest($request);
     	if ($form->isSubmitted() && $form->isValid()) {
     		$data = $form->getData();
     		
-    		$page = 1;
-    		
-    		$worlds = $repository->getFilteredWorld($data, 2, $page);
+    		//$page = 1;
+            
+            
+    		$worlds = $repository->getFilteredWorlds($data, $perPage, $page);
     		
     		$totalWorlds = $repository->getTotalFilteredWorlds($data);
     		
     	}
     	else
     	{
-    		$worlds = $repository->findWorlds(2, $page);
+    		$worlds = $repository->findWorlds($perPage, $page);
     		
     		$totalWorlds = $repository->getTotalWorlds();
     	}
     	
-    	$paginator = new \lib\Paginator($page, $totalWorlds, 2);
+    	$paginator = new \lib\Paginator($page, $totalWorlds, $perPage);
     	$pageList = $paginator->getPageList();
     	
     	// parameters to template
@@ -84,8 +85,10 @@ class WorldController extends Controller
     
     public function viewWorldChildrenAction(Request $request, $worldId, $page)
     {
+        $perPage = 2;
+        
     	$repository = $this->getDoctrine()->getRepository('FictionWorldBundle:World');
-    	$worlds = $repository->findChildWorlds($worldId, 2, $page);
+    	$worlds = $repository->findChildWorlds($worldId, $perPage, $page);
     
     	if (!$worlds)
     	{
@@ -96,7 +99,7 @@ class WorldController extends Controller
     	
     	$totalChildren = $repository->getTotalChildWorlds($worldId);
     	
-    	$paginator = new \lib\Paginator($page, $totalChildren, 2);
+    	$paginator = new \lib\Paginator($page, $totalChildren, $perPage);
     	$pageList = $paginator->getPageList();
     
     	return $this->render('FictionWorldBundle:World:view_world_children.html.twig', array(
@@ -131,11 +134,13 @@ class WorldController extends Controller
 	    	/**
 	    	 * Create a form so the user can edit an individual chapter
 	    	 */
-	    	$chapterEditForm = $this->createFormBuilder()
+	    	/*
+            * TODO
+            $chapterEditForm = $this->createFormBuilder()
 	    	->setMethod('GET')
 	    	->add('chapters', 'entity', array(
-	    			'class' => 'FictionWorldBundle:Chapter',
-	    			'choices' => $this->getDoctrine()->getRepository('FictionWorldBundle:Chapter')->getAllWorldChapters($world),
+	    			'class' => 'FictionStoryBundle:Chapter',
+	    			'choices' => $this->getDoctrine()->getRepository('FictionStoryBundle:Chapter')->getAllStoryChapters($world),
 	    			'choice_label' => 'title'
 	    	))
 	    	->getForm();
@@ -146,12 +151,12 @@ class WorldController extends Controller
 	    	{
 	    		$newChapter = $chapterEditForm->get('chapters')->getData();
 	    		return $this->redirect($this->generateUrl('edit_chapter', array(
-	    				'worldId' => $worldId, 'chapterNumber' => $newChapter->getChapterNumber())));
+	    				'storyId' => $worldId, 'chapterNumber' => $newChapter->getChapterNumber())));
 	    	}
 	    	else 
 	    	{
 	    		$chapterEditForm = $chapterEditForm->createView();
-	    	}
+	    	}*/
     	}
     	else
     	{
@@ -188,7 +193,7 @@ class WorldController extends Controller
     	 
     	return $this->render('FictionWorldBundle:World:edit.html.twig', array(
     			'form' => $form->createView(),
-    			'chapterForm' => $chapterEditForm,
+    			//'chapterForm' => $chapterEditForm, TODO
                 'world_id' => $worldId
     	));
     }

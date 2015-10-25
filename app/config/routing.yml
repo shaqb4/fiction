@@ -1,3 +1,7 @@
+fiction_story:
+    resource: "@FictionStoryBundle/Resources/config/routing/routing.yml"
+    prefix:   /
+
 fiction_world:
     resource: "@FictionWorldBundle/Resources/config/routing/routing.yml"
     prefix:   /

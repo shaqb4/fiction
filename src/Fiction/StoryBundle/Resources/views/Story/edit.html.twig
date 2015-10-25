@@ -1,16 +1,15 @@
 {% extends 'FictionAppBundle:Base:layout.html.twig' %}
 
-{% block title %}Edit a World{% endblock %}
+{% block title %}Edit a Story{% endblock %}
 
 {% block body %}
 	<div class="row bottom-buffer-20">
 		<div class="col-md-4">
-			<a href="{{ path('create_story', {'worldId': world_id}) }}" class="btn btn-primary">
-				Create A Story
+			<a href="{{ path('create_chapter', {'storyId': story_id}) }}" class="btn btn-primary">
+				Create A Chapter
 			</a>
 		</div>
 	</div>
-    {#
 	{% if chapterForm %}
 		{{ form_start(chapterForm) }}
 			{{ form_errors(chapterForm) }}
@@ -33,7 +32,7 @@
 				</div>
 			</div>
 		{{ form_end(chapterForm) }}
-	{% endif %} #}
+	{% endif %}
 	
 	{# form(form) #}	
 	
@@ -52,7 +51,9 @@
 	        {% endfor %}
 	    </ul>
 	    
-	    {{ form_row(form.world_type) }}
+	    {{ form_row(form.world) }}
+	    
+	    {{ form_row(form.categories) }}
 	    
 	    {{ form_row(form.description) }}
 	    
@@ -62,10 +63,4 @@
 	{{ form_end(form, {'render_rest': false}) }}
 	
 	{{ tinymce_init() }}
-	
-	{% javascripts
-		'@FictionWorldBundle/Resources/public/js/world-parent.js'
-	%}
-		<script type="text/javascript" src="{{ asset_url }}"></script>
-	{% endjavascripts %}
 {% endblock %}

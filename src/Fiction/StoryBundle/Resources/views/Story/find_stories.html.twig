@@ -1,75 +1,75 @@
 {% extends 'FictionAppBundle:Base:layout.html.twig' %}
 
-{% block title %}Find Worlds{% endblock %}
+{% block title %}Find Stories{% endblock %}
 
 {% block body %}
 	{{ form_start(form) }}
 	    {# render the task's only field: description #}
 	    {{ form_row(form.title) }}
-	    
-	    {{ form_row(form.world_type) }}
+	    	    
+	    {{ form_row(form.categories) }}
 	    
 	    {{ form_row(form.description) }}
 	    
 	    {{ form_row(form.Filter) }}
 	{{ form_end(form, {'render_rest': false}) }}
 	
-	{% for world in worlds %}
+	{% for story in stories %}
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-md-6">
 						<strong class="text-capitalize h3">
-							<a href="{{ path('view_world', {'worldId': world.id}) }}" class="">
-								{{ world.title }}
+							<a href="{{ path('view_story', {'storyId': story.0.id}) }}" class="">
+								{{ story.0.title }}
 							</a> 
 							<small>
 								<span class="h5">by</span> 
-								<em class="h4">{{ world.user.username }}</em>  
+								<em class="h4">{{ story.0.user.username }}</em>  
 								<span class="h5">on </span>
-								<span class="h5">{{ world.updatedAt|localizeddate('medium', 'none') }}</span>
+								<span class="h5">{{ story.0.updatedAt|localizeddate('medium', 'none') }}</span>
 							</small>
 						</strong>
 					</div>
 					<div class="col-md-6 text-right">
 						<strong class="text-capitalize h4">
-							{{ world.worldType.name }}
+							?
 						</strong>
 					</div>
 				</div>
 			</div>	
 			<div class="panel-body">				
 				<section class="editor-content">
-					{% if world.description|length > 1000 %}
-						{{ (world.description[:1000] ~ '...')|e|nl2br }}
+					{% if story.0.description|length > 1000 %}
+						{{ (story.0.description[:1000] ~ '...')|e|nl2br }}
 					{% else %}
-						{{ world.description|e|nl2br }}
+						{{ story.0.description|e|nl2br }}
 					{% endif %}					
 				</section>
-                <a href="{{ path('view_world', {'worldId': world.id}) }}">View World</a>
-					{% if world.parents is not empty %}
+                <a href="{{ path('view_story', {'storyId': story.0.id}) }}">Read More</a>
+					{% if story.0.parents is not empty %}
 						<hr />
-						{% for parent in world.parents %}
+						{% for parent in story.0.parents %}
 							<span> | </span>
 							<em>
-								<a href="{{ path('view_world', {'worldId': parent.id}) }}" class="">
+								<a href="{{ path('view_story', {'storyId': parent.id}) }}" class="">
 									{{ parent.title }}
 								</a></em>
 						{% endfor %}
 					{% endif %}
 			</div>
 			<div class="panel-footer">
-				<strong><em>Created:</em></strong> {{ world.createdAt|localizeddate('medium', 'short') }}
-				{# {% if world.worldType.id == 1 %}
-					<strong><em>Chapters:</em></strong> {{ world.chapter_count }}
-				{% endif %} #}
+				<strong><em>Created:</em></strong> {{ story.0.createdAt|localizeddate('medium', 'short') }}
+				{% if story.0.storyType.id == 1 %}
+					<strong><em>Chapters:</em></strong> {{ story.chapter_count }}
+				{% endif %}
 			</div>
 		</div>
 	{% endfor %}
 	<ul class="pagination">
 		{% for p in paginator.page %}
 			<li>
-				<a href="{{ path('find_world', {'page': p}|merge(app.request.query.all)) }}" class="">
+				<a href="{{ path('find_story', {'page': p}|merge(app.request.query.all)) }}" class="">
 					{{ paginator.label[loop.index0] }}
 				</a>
 			</li>

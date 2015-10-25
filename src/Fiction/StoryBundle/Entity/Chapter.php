@@ -1,6 +1,6 @@
 <?php
 
-namespace Fiction\WorldBundle\Entity;
+namespace Fiction\StoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,9 +25,9 @@ class Chapter
     private $content;
     
     /**
-     * @var \Fiction\WorldBundle\Entity\World
+     * @var \Fiction\StoryBundle\Entity\Story
      */
-	protected $world;
+	protected $story;
 	
 	/**
      * @var \DateTime
@@ -107,26 +107,26 @@ class Chapter
     }
 
     /**
-     * Set world
+     * Set story
      *
-     * @param \Fiction\WorldBundle\Entity\World $world
+     * @param \Fiction\StoryBundle\Entity\Story $story
      * @return Chapter
      */
-    public function setWorld(\Fiction\WorldBundle\Entity\World $world = null)
+    public function setStory(\Fiction\StoryBundle\Entity\Story $story = null)
     {
-        $this->world = $world;
+        $this->story = $story;
 
         return $this;
     }
 
     /**
-     * Get world
+     * Get story
      *
-     * @return \Fiction\WorldBundle\Entity\World 
+     * @return \Fiction\StoryBundle\Entity\Story 
      */
-    public function getWorld()
+    public function getStory()
     {
-        return $this->world;
+        return $this->story;
     }
 
     /**

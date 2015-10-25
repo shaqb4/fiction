@@ -1,6 +1,6 @@
 <?php
 
-namespace Fiction\WorldBundle\Entity;
+namespace Fiction\StoryBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -12,32 +12,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class ChapterRepository extends EntityRepository
 {
-	public function getWorldChapter($world, $chapterNumber)
+	public function getStoryChapter($story, $chapterNumber)
 	{
 		$em = $this->getEntityManager();
 		
 		$query = $em->createQuery(
 		    'SELECT c
-		    FROM FictionWorldBundle:Chapter c
-		    WHERE c.world = :world AND c.chapter_number = :chapter'
+		    FROM FictionStoryBundle:Chapter c
+		    WHERE c.story = :story AND c.chapter_number = :chapter'
 		)
-		->setParameter(':world', $world)
+		->setParameter(':story', $story)
 		->setParameter(':chapter', $chapterNumber);
 		
 		return $query->getOneOrNullResult();
 	}
 	
-	public function getAllWorldChapters($world)
+	public function getAllStoryChapters($story)
 	{
 		$em = $this->getEntityManager();
 	
 		$query = $em->createQuery(
 			'SELECT c
-		    FROM FictionWorldBundle:Chapter c
-		    WHERE c.world = :world
+		    FROM FictionStoryBundle:Chapter c
+		    WHERE c.story = :story
 			ORDER BY c.chapter_number ASC'
 		)
-		->setParameter(':world', $world);
+		->setParameter(':story', $story);
 	
 		return $query->getResult();
 	}
@@ -48,19 +48,19 @@ class ChapterRepository extends EntityRepository
 	 * i.e moving chapter number 3 to chapter number 8 returns
 	 * chapters 3 to 8 to be updated accordingly 
 	 *  
-	 * @param World $world
+	 * @param Story $story
 	 */
-	public function getUpdatedWorldChapters($world, $startChapter, $endChapter)
+	public function getUpdatedStoryChapters($story, $startChapter, $endChapter)
 	{
 		$em = $this->getEntityManager();
 		
 		$query = $em->createQuery(
 		    'SELECT c
-		    FROM FictionWorldBundle:Chapter c
-		    WHERE c.world = :world AND c.chapter_number >= :startChapter AND c.chapter_number <= :endChapter
+		    FROM FictionStoryBundle:Chapter c
+		    WHERE c.story = :story AND c.chapter_number >= :startChapter AND c.chapter_number <= :endChapter
 			ORDER BY c.chapter_number ASC'
 		)
-		->setParameter(':world', $world)
+		->setParameter(':story', $story)
 		->setParameter(':startChapter', $startChapter)
 		->setParameter(':endChapter', $endChapter);
 		

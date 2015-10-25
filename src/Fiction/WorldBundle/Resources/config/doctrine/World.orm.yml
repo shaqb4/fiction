@@ -18,12 +18,7 @@ Fiction\WorldBundle\Entity\World:
             type: datetime
         updated_at:
             type: datetime
-        word_count:
-            type: integer
     oneToMany:
-        chapters:
-            targetEntity: Chapter
-            mappedBy: world
     manyToOne:
         user:
             targetEntity: \Fiction\UserBundle\Entity\User
@@ -52,19 +47,7 @@ Fiction\WorldBundle\Entity\World:
                         referencedColumnName: id
                 inverseJoinColumns:
                     parent_id:
-                        referencedColumnName: id
-        categories:
-            targetEntity: \Fiction\WorldBundle\Entity\Category
-            inversedBy: worlds
-            joinTable:
-                name: world_category
-                joinColumns:
-                    world_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    category_id:
-                        referencedColumnName: id
-                        
+                        referencedColumnName: id                        
                     
     lifecycleCallbacks:
         prePersist: [setCreatedAtValue, setUpdatedAtValue]

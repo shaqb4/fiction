@@ -23,11 +23,11 @@
 					<a href="{{ path('view_world_children', {'worldId': world.id, 'page': 1}) }}" class="">
 						View Extending Worlds
 					</a>
-					{% if world.worldType.id == 1 and world.chapters|length > 0 %}
+					{# {% if world.worldType.id == 1 and world.chapters|length > 0 %}
 						<a href="{{ path('view_chapter', {'worldId': world.id, 'chapterNumber': 1}) }}" class="">
 							Read
 						</a>
-					{% endif %}
+					{% endif %} #}
 				</p>
 				<hr />
 				<p>{{ world.description|e|nl2br }}</p>
@@ -45,9 +45,9 @@
 			</div>
 			<div class="panel-footer">
 				<strong><em>Created:</em></strong> {{ world.createdAt|localizeddate('medium', 'short') }}
-				{% if world.worldType.id == 1 %}
+				{# {% if world.worldType.id == 1 %}
 					<strong><em>Chapters:</em></strong> {{ world.chapters|length }}
-				{% endif %}
+				{% endif %} #}
 			</div>
 		</div>
 		
@@ -88,9 +88,9 @@
 			</div>
 			<div class="panel-footer">
 				<strong><em>Created:</em></strong> {{ child.createdAt|localizeddate('medium', 'short') }}
-				{% if child.worldType.id == 1 %}
+				{# {% if child.worldType.id == 1 %}
 					<strong><em>Chapters:</em></strong> {{ child.chapters|length }}
-				{% endif %}
+				{% endif %} #}
 			</div>
 		</div>
 	{% endfor %}-->

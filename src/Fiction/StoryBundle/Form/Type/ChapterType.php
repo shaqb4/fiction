@@ -1,21 +1,21 @@
 <?php
-namespace Fiction\WorldBundle\Form\Type;
+namespace Fiction\StoryBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Fiction\WorldBundle\Entity\World;
-use Fiction\WorldBundle\Entity\Chapter;
+use Fiction\StoryBundle\Entity\Story;
+use Fiction\StoryBundle\Entity\Chapter;
 
 class ChapterType extends AbstractType
 {
-	private $world;
+	private $story;
 	private $chapterNumber;
 	private $isCreate;
 	
-	public function __construct(World $world, $chapterNumber, $create = false)
+	public function __construct(Story $story, $chapterNumber, $create = false)
 	{
-		$this->world = $world;
+		$this->story = $story;
 		$this->chapterNumber = $chapterNumber;
 		$this->isCreate = $create;
 	}
@@ -23,7 +23,7 @@ class ChapterType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{		
 		$chapters = array();
-		$lastChapter = sizeof($this->world->getChapters());
+		$lastChapter = sizeof($this->story->getChapters());
 
 		if (!$this->isCreate)
 		{
@@ -51,7 +51,7 @@ class ChapterType extends AbstractType
 		$builder->add('content', 'pure_textarea', array(
 			'attr' => array(
 				'class' => 'tinymce',
-				'data-theme' => 'world'				
+				'data-theme' => 'story'				
 			)
 		));
 		$builder->add('save', 'submit');
@@ -60,7 +60,7 @@ class ChapterType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'Fiction\WorldBundle\Entity\Chapter',
+				'data_class' => 'Fiction\StoryBundle\Entity\Chapter',
 		));
 	}
 

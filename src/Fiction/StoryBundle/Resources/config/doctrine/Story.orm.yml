@@ -1,0 +1,71 @@
+Fiction\StoryBundle\Entity\Story:
+    type: entity
+    repositoryClass: \Fiction\StoryBundle\Entity\StoryRepository
+    table: story
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+        word_count:
+            type: integer
+    oneToMany:
+        chapters:
+            targetEntity: Chapter
+            mappedBy: story
+    manyToOne:
+        #user:
+         #   targetEntity: \Fiction\UserBundle\Entity\User
+          #  inversedBy: stories
+           # joinColumn:
+            #    name: user_id
+             #   referencedColumnName: id
+        world:
+            targetEntity: \Fiction\WorldBundle\Entity\World
+            inversedBy: stories
+            joinColumn:
+                name: world_id
+                referencedColumnName: id
+    manyToMany:
+        #children:
+         #   targetEntity: \Fiction\WorldBundle\Entity\World
+          #  mappedBy: parents
+        #parents:
+         #   targetEntity: \Fiction\WorldBundle\Entity\World
+          #  inversedBy: children
+           # cascade: [persist]
+            #joinTable:
+             #   name: parents
+              #  joinColumns:
+               #     child_id:
+                #        referencedColumnName: id
+                #inverseJoinColumns:
+                 #   parent_id:
+                  #      referencedColumnName: id
+        categories:
+            targetEntity: \Fiction\StoryBundle\Entity\StoryCategory
+            inversedBy: stories
+            joinTable:
+                name: story_category
+                joinColumns:
+                    story_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    category_id:
+                        referencedColumnName: id
+                        
+                    
+    lifecycleCallbacks:
+        prePersist: [setCreatedAtValue, setUpdatedAtValue]
+        preUpdate: [setUpdatedAtValue]

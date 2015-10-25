@@ -1,4 +1,4 @@
-Fiction\WorldBundle\Entity\Category:
+Fiction\StoryBundle\Entity\StoryCategory:
     type: entity
     table: category
     id:
@@ -12,7 +12,7 @@ Fiction\WorldBundle\Entity\Category:
             type: string
             length: 255
     manyToMany:
-        worlds:
-            targetEntity: \Fiction\WorldBundle\Entity\World
+        stories:
+            targetEntity: \Fiction\StoryBundle\Entity\Story
             mappedBy: categories
     lifecycleCallbacks: {  }

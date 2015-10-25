@@ -21,13 +21,13 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="world-{{ world.id }}-actions">
-								{% if world.worldType.id == 1 and world.chapters|length > 0 %}
+								{# {% if world.worldType.id == 1 and world.chapters|length > 0 %}
 									<li role="presentation">
 										<a role="menuitem" tabindex="-1" href="{{ path('view_chapter', {'worldId': world.id, 'chapterNumber': 1}) }}">
 											Read
 										</a>
 									</li>
-								{% endif %}
+								{% endif %} #}
 								<li role="presentation">
 									<a role="menuitem" tabindex="-1" href="{{ path('edit_world', {'worldId': world.id}) }}">
 										Edit
@@ -63,9 +63,9 @@
 			</div>
 			<div class="panel-footer">
 				<strong><em>Created:</em></strong> {{ world.createdAt|localizeddate('medium', 'short') }}
-				{% if world.worldType.id == 1 %}
+				{# {% if world.worldType.id == 1 %}
 					<strong><em>Chapters:</em></strong> {{ world.chapters|length }}
-				{% endif %}
+				{% endif %} #}
 			</div>
 		</div>
 	{% endfor %}

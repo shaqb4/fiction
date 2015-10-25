@@ -1,6 +1,6 @@
 <?php
 
-namespace Fiction\WorldBundle\Entity;
+namespace Fiction\StoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Category
  */
-class Category
+class StoryCategory
 {
     /**
      * @var integer
@@ -24,7 +24,7 @@ class Category
      *
      * @var ArrayCollection
      */
-    protected $worlds;
+    protected $stories;
     
     /**
      * Constructor
@@ -33,7 +33,7 @@ class Category
     {
     	parent::__construct();
     
-    	$this->worlds = new ArrayCollection();
+    	$this->stories = new ArrayCollection();
     }
 
     /**
@@ -70,35 +70,35 @@ class Category
     }
 
     /**
-     * Add worlds
+     * Add stories
      *
-     * @param \Fiction\WorldBundle\Entity\World $worlds
+     * @param \Fiction\StoryBundle\Entity\Story $stories
      * @return Category
      */
-    public function addWorld(\Fiction\WorldBundle\Entity\World $worlds)
+    public function addStory(\Fiction\StoryBundle\Entity\Story $stories)
     {
-        $this->worlds[] = $worlds;
+        $this->stories[] = $stories;
 
         return $this;
     }
 
     /**
-     * Remove worlds
+     * Remove stories
      *
-     * @param \Fiction\WorldBundle\Entity\World $worlds
+     * @param \Fiction\StoryBundle\Entity\Story $stories
      */
-    public function removeWorld(\Fiction\WorldBundle\Entity\World $worlds)
+    public function removeStory(\Fiction\StoryBundle\Entity\Story $stories)
     {
-        $this->worlds->removeElement($worlds);
+        $this->stories->removeElement($stories);
     }
 
     /**
-     * Get worlds
+     * Get stories
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getWorlds()
+    public function getStories()
     {
-        return $this->worlds;
+        return $this->stories;
     }
 }

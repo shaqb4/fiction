@@ -1,0 +1,19 @@
+{% extends 'FictionAppBundle:Base:layout.html.twig' %}
+
+{% block title %}Edit a Chapter{% endblock %}
+
+{% block body %}
+	{% for flashMessage in app.session.flashbag.get('error') %}
+	    <div class="alert alert-danger text-center">
+	        <h4>{{ flashMessage|raw }}</h4>
+	    </div>
+	{% endfor %}
+	{% if form and story %}
+		<h3><a href="{{ path('edit_story', {'storyId': storyId}) }}"> 
+			Edit Story
+		</a></h3>
+		<h1>{{ story }}: {{ chapter }}</h1>
+		{{ form(form) }}
+		{{ tinymce_init() }}
+	{% endif %}
+{% endblock %}

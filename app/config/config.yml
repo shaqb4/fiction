@@ -141,7 +141,7 @@ stfalcon_tinymce:
     selector: '.tinymce'
     language: '%locale%'
     theme:
-        world:
+        story:
             valid_elements: "@[class|id|style],p,strong,b,i,em,s,hr,ul,li,ol,span,div,img[src|alt],a[!href|target=_blank],h1,h2,h3,h4,h5,h6,sub,sup,q[cite],blockquote[cite],pre,code,cite,address,abbr[title],dfn,kbd,samp,u,var,br"
             skin: 'customplain'
             height: 400

@@ -1,6 +1,6 @@
-Fiction\WorldBundle\Entity\Chapter:
+Fiction\StoryBundle\Entity\Chapter:
     type: entity
-    repositoryClass: \Fiction\WorldBundle\Entity\ChapterRepository
+    repositoryClass: \Fiction\StoryBundle\Entity\ChapterRepository
     table: chapter
     id:
         id:
@@ -23,11 +23,11 @@ Fiction\WorldBundle\Entity\Chapter:
         word_count:
             type: integer
     manyToOne:
-        world:
-            targetEntity: World
+        story:
+            targetEntity: Story
             inversedBy: chapters
             joinColumn:
-                name: world_id
+                name: story_id
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [setCreatedAtValue, setUpdatedAtValue]

@@ -1,0 +1,76 @@
+Fiction\StoryBundle\Entity\Story:
+    properties:
+        id:
+            - Type:
+                type: integer
+                message: "{{ value }} is not a valid id. It must be an integer."
+            - GreaterThan:
+                value: 0
+        title:
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "The story title must be at least {{ limit }} character(s)."
+                maxMessage: "The story title must be less than {{ limit }} characters."
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
+            - Length:
+                min: 1
+                max: 1000
+                minMessage: "The story description must be at least {{ limit }} character(s)."
+                maxMessage: "The story description must be less than {{ limit }} characters."
+        created_at:
+            - DateTime: ~
+        updated_at:
+            - DateTime: ~
+        word_count:
+            - Type:
+                type: integer
+                message: "The word count must be an integer."
+                
+Fiction\StoryBundle\Entity\Chapter:
+    properties:
+        id:
+            - Type:
+                type: integer
+                message: "{{ value }} is not a valid id. It must be an integer."
+            - GreaterThan:
+                value: 0
+        title:
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "The chapter title must have at least {{ limit }} characters."
+                maxMessage: "The chapter title must be less than {{ limit }} characters."
+            - NotBlank: ~
+        content:
+            - NotBlank: ~
+        created_at:
+            - DateTime: ~
+        updated_at:
+            - DateTime: ~
+        chapter_number:
+            - Type:
+                type: integer
+                message: "The word count must be an integer."
+        word_count:
+            - Type:
+                type: integer
+                message: "The word count must be an integer."
+
+Fiction\StoryBundle\Entity\StoryCategory:
+    properties:
+        id:
+            - Type:
+                type: integer
+                message: "{{ value }} is not a valid id. It must be an integer."
+            - GreaterThan:
+                value: 0
+        name:
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "The category's name must have at least {{ limit }} characters."
+                maxMessage: "The category's name must be less than {{ limit }} characters."
+            - NotBlank: ~
