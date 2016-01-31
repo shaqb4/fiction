@@ -10,4 +10,6 @@ Writing should be shared experience. Ideas should be shared,  and characters and
 ### Development
 --------------------------------
 
-This site is developed with the Symfony PHP web framework.
+This site is developed with the [Symfony PHP web framework](http://symfony.com/).
+
+It has not yet been deployed. I use [Vagrant](https://www.vagrantup.com/) for my local environment.
